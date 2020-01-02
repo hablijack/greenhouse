@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Habel Gewächshaus</title>
+
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Lato' />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Letzte Updates <i class="fa fa-clock-o" aria-hidden="true"></i></h4>
+                    <p class="card-text" id="last-time"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-2 ">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Temperatur <i class="fa fa-thermometer-half" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-temp">{{ current.temperature }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 ">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Luftfeuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-temp">{{ current.humidity }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Co2 Gehalt <i class="fa fa-mixcloud" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-co2">{{ current.co2 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Bodenfeuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-soil-moisture">{{ current.soil_moisture }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">UV-Wert <i class="fa fa-sun-o" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-uv">{{ current.brightness }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Platzhalter <i class="fa" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-placeholder"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="/assets/img/greenhouse.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body text-center" id="endpoints">
+                    <a id="endpoint-1" class="btn btn-info">Hourly</a>
+                    <a id="endpoint-2" class="btn btn-info">Daily</a>
+                    <a id="endpoint-3" class="btn btn-info">Weekly</a>
+                    <a id="endpoint-4" class="btn btn-info">Monthly</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.0/moment.js'></script>
+
+    <script src="/assets/js/index.js"></script>
+</body>
+</html>
