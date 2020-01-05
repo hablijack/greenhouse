@@ -12,32 +12,26 @@ class Scheduler:
         atexit.register(lambda: self.scheduler.shutdown())
 
         self.scheduler.add_job(
-            id='measure_temperature',
-            func=self.measure_temperature,
+            id='measure_temp_inside',
+            func=self.measure_temp_inside,
             trigger='interval',
             seconds=60)
 
         self.scheduler.add_job(
-            id='measure_humidity',
-            func=self.measure_humidity,
+            id='measure_temp_outside',
+            func=self.measure_temp_outside,
             trigger='interval',
             seconds=60)
 
         self.scheduler.add_job(
-            id='measure_soil_moisture',
-            func=self.measure_soil_moisture,
+            id='measure_soil_moisture_1',
+            func=self.measure_soil_moisture_1,
             trigger='interval',
             seconds=60)
 
         self.scheduler.add_job(
-            id='measure_brightness',
-            func=self.measure_brightness,
-            trigger='interval',
-            seconds=60)
-
-        self.scheduler.add_job(
-            id='measure_co2',
-            func=self.measure_co2,
+            id='measure_soil_moisture_2',
+            func=self.measure_soil_moisture_2,
             trigger='interval',
             seconds=60)
 
@@ -45,33 +39,25 @@ class Scheduler:
 
     def persist(self, timestamp, key, value):
         json_body = [{
-                "measurement": key,
-                "time": timestamp,
-                "fields": { "value": value }
+            "measurement": key,
+            "time": timestamp,
+            "fields": { "value": value }
         }]
         self.persistence.write(json_body)
 
-    def measure_temperature(self):
-        print("... messe die Temperatur.")
+    def measure_temp_inside(self):
         value = random.uniform(1, 30)
-        self.persist(datetime.now(), 'temperature', value)
+        self.persist(datetime.now(), 'temp_inside', value)
 
-    def measure_humidity(self):
-        print("... messe die Luftfeuchtigkeit.")
-        value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'humidity', value)
-
-    def measure_soil_moisture(self):
-        print("... messe die Bodenfeuchte.")
-        value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'soil_moisture', value)
-
-    def measure_brightness(self):
-        print("... messe die Helligkeit.")
+    def measure_temp_outside(self):
         value = random.uniform(1, 30)
-        self.persist(datetime.now(), 'brightness', value)
+        self.persist(datetime.now(), 'temp_outside', value)
 
-    def measure_co2(self):
-        print("... messe die CO2 Konzentration.")
+    def measure_soil_moisture_1(self):
         value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'co2', value)
+        self.persist(datetime.now(), 'soil_moisture_1', value)
+
+    def measure_soil_moisture_2(self):
+        value = random.uniform(1, 100)
+        self.persist(datetime.now(), 'soil_moisture_2', value)
+
