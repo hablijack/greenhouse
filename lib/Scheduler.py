@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 
 from lib.Humidity import Humidity
+from lib.CO2 import CO2
 
 class Scheduler:
 
@@ -19,37 +20,37 @@ class Scheduler:
             id='measure_temp_inside',
             func=self.measure_temp_inside,
             trigger='interval',
-            seconds=60)
+            minutes=10)
 
         self.scheduler.add_job(
             id='measure_temp_outside',
             func=self.measure_temp_outside,
             trigger='interval',
-            seconds=60)
+            minutes=10)
 
         self.scheduler.add_job(
             id='measure_soil_moisture_1',
             func=self.measure_soil_moisture_1,
             trigger='interval',
-            seconds=60)
+            minutes=15)
 
         self.scheduler.add_job(
             id='measure_soil_moisture_2',
             func=self.measure_soil_moisture_2,
             trigger='interval',
-            seconds=60)
+            minutes=15)
 
         self.scheduler.add_job(
             id='measure_co2',
             func=self.measure_co2,
             trigger='interval',
-            seconds=60)
+            minutes=20)
 
         self.scheduler.add_job(
-            id='measure_humidita',
+            id='measure_humidity',
             func=self.measure_humidity,
             trigger='interval',
-            seconds=60)
+            minutes=30)
 
         self.scheduler.start()
         self.measure_all_values()
@@ -64,30 +65,45 @@ class Scheduler:
 
     def measure_temp_inside(self):
         value = random.uniform(1, 30)
-        self.persist(datetime.now(), 'temp_inside', value)
+        if value != None:
+            self.persist(datetime.now(), 'temp_inside', value)
+        else: 
+            print("ERROR: Could not read from temperature sensor inside !")
 
     def measure_temp_outside(self):
         value = random.uniform(1, 30)
-        self.persist(datetime.now(), 'temp_outside', value)
+        if value != None:
+            self.persist(datetime.now(), 'temp_outside', value)
+        else: 
+            print("ERROR: Could not read from temperature sensor outside !")
 
     def measure_soil_moisture_1(self):
         value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'soil_moisture_1', value)
+        if value != None:
+            self.persist(datetime.now(), 'soil_moisture_1', value)
+        else: 
+            print("ERROR: Could not read from soil moisture sensor 1 !")
 
     def measure_soil_moisture_2(self):
         value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'soil_moisture_2', value)
+        if value != None:
+            self.persist(datetime.now(), 'soil_moisture_2', value)
+        else: 
+            print("ERROR: Could not read from soil moisture sensor 2 !")
 
     def measure_co2(self):
-        value = random.uniform(1, 100)
-        self.persist(datetime.now(), 'co2', value)
+        value = CO2().read()
+        if value != None:
+            self.persist(datetime.now(), 'co2', value)
+        else: 
+            print("ERROR: Could not read from co2 sensor !")
 
     def measure_humidity(self):
         value = Humidity().read()
         if value != None:
             self.persist(datetime.now(), 'humidity', value)
         else:
-            print("could not read from humidity sensor")
+            print("ERROR: Could not read from humidity sensor !")
 
     def measure_all_values(self):
         self.measure_humidity()
