@@ -59,16 +59,16 @@
                 <div class="col-lg-2">
                     <div class="card">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Platzhalter <i class="fa" aria-hidden="true"></i></h4>
-                            <p class="card-text" id="last-placeholder"></p>
+                            <h5 class="card-title">Luft Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
+                            <p class="card-text" id="last-humidity">{{ current.humidity | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="card">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Platzhalter <i class="fa" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-placeholder"></p>
+                            <h5 class="card-title">CO2 Gehalt <i class="fa fa-cloud" aria-hidden="true"></i></h5>
+                            <p class="card-text" id="last-placeholder">{{ current.co2 | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>

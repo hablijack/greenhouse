@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import atexit
 import random
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -35,7 +37,20 @@ class Scheduler:
             trigger='interval',
             seconds=60)
 
+        self.scheduler.add_job(
+            id='measure_co2',
+            func=self.measure_co2,
+            trigger='interval',
+            seconds=60)
+
+        self.scheduler.add_job(
+            id='measure_humidita',
+            func=self.measure_humidity,
+            trigger='interval',
+            seconds=60)
+
         self.scheduler.start()
+        self.measure_all_values()
 
     def persist(self, timestamp, key, value):
         json_body = [{
@@ -61,3 +76,18 @@ class Scheduler:
         value = random.uniform(1, 100)
         self.persist(datetime.now(), 'soil_moisture_2', value)
 
+    def measure_co2(self):
+        value = random.uniform(1, 100)
+        self.persist(datetime.now(), 'co2', value)
+
+    def measure_humidity(self):
+        value = random.uniform(1, 100)
+        self.persist(datetime.now(), 'humidity', value)
+
+    def measure_all_values(self):
+        self.measure_humidity()
+        self.measure_co2()
+        self.measure_soil_moisture_2()
+        self.measure_soil_moisture_1()
+        self.measure_temp_inside()
+        self.measure_temp_outside()

@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 from waitress import serve
 from flask import Flask, request, render_template, Response, send_from_directory, jsonify
 from lib.Persistence import Persistence
