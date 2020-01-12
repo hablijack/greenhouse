@@ -5,7 +5,7 @@ class Persistence:
 
     def __init__(self):
         self.client = InfluxDBClient(
-            host='192.168.178.74',
+            host='localhost',
             port=8086,
             username='root',
             password='root',
@@ -38,7 +38,6 @@ class Persistence:
     def __get_current_temp_inside_value(self):
         results = self.client.query('select LAST("value") from temp_inside;')
         resultsInList = list(results.get_points(measurement='temp_inside'))
-        print(resultsInList)
         if not resultsInList:
             return None
         else:
