@@ -3,3 +3,4 @@ waitress
 apscheduler
 fsspec
 influxdb
+Adafruit_DHT
