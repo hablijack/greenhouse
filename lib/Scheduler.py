@@ -84,7 +84,10 @@ class Scheduler:
 
     def measure_humidity(self):
         value = Humidity().read()
-        self.persist(datetime.now(), 'humidity', value)
+        if value != None:
+            self.persist(datetime.now(), 'humidity', value)
+        else:
+            print("could not read from humidity sensor")
 
     def measure_all_values(self):
         self.measure_humidity()

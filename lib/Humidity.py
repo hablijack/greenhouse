@@ -9,5 +9,5 @@ class Humidity():
     def read(self):
         DHT_TYPE = Adafruit_DHT.AM2302
         DHT_PIN  = 23
-        humidity = Adafruit_DHT.read_retry(DHT_TYPE, DHT_PIN)
+        humidity, temperature = Adafruit_DHT.read_retry(DHT_TYPE, DHT_PIN)
         return humidity
