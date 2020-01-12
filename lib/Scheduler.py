@@ -6,6 +6,8 @@ import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 
+from lib.Humidity import Humidity
+
 class Scheduler:
 
     def __init__(self, persistence):
@@ -81,7 +83,7 @@ class Scheduler:
         self.persist(datetime.now(), 'co2', value)
 
     def measure_humidity(self):
-        value = random.uniform(1, 100)
+        value = Humidity().read()
         self.persist(datetime.now(), 'humidity', value)
 
     def measure_all_values(self):
