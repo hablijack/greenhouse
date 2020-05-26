@@ -20,37 +20,37 @@ class Scheduler:
             id='measure_temp_inside',
             func=self.measure_temp_inside,
             trigger='interval',
-            minutes=10)
+            seconds=60)
 
         self.scheduler.add_job(
             id='measure_temp_outside',
             func=self.measure_temp_outside,
             trigger='interval',
-            minutes=10)
+            seconds=60)
 
         self.scheduler.add_job(
             id='measure_soil_moisture_1',
             func=self.measure_soil_moisture_1,
             trigger='interval',
-            minutes=15)
+            seconds=60)
 
         self.scheduler.add_job(
             id='measure_soil_moisture_2',
             func=self.measure_soil_moisture_2,
             trigger='interval',
-            minutes=15)
+            seconds=60)
 
         self.scheduler.add_job(
             id='measure_co2',
             func=self.measure_co2,
             trigger='interval',
-            minutes=20)
+            seconds=60)
 
         self.scheduler.add_job(
             id='measure_humidity',
             func=self.measure_humidity,
             trigger='interval',
-            minutes=30)
+            seconds=60)
 
         self.scheduler.start()
         self.measure_all_values()
@@ -59,7 +59,7 @@ class Scheduler:
         json_body = [{
             "measurement": key,
             "time": timestamp,
-            "fields": { "value": value }
+            "fields": { "value": value, "sensor": key }
         }]
         self.persistence.write(json_body)
 

@@ -51,8 +51,17 @@ body {
     color: #AAB2BD;
 }
 
+.card-title {
+    font-size: 1.2rem;
+}
+
 .row + .row {
     margin-top: 20px;
+}
+
+
+.short-history {
+    padding: 15px 0px 0px 0px;
 }
 
 .canvasjs-chart-credit {

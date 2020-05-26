@@ -5,10 +5,9 @@
     <title>Habel Gewächshaus</title>
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Lato' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css">
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -17,9 +16,37 @@
     <div class="row">
         <div class="col-lg-2">
             <div class="card h-100">
-                <div class="card-body text-center">
+                <div class="short-history card-body text-center">
                     <h5 class="card-title">Letzte Updates <i class="fa fa-clock-o" aria-hidden="true"></i></h5>
-                    <p class="card-text" id="last-time"></p>
+                    <p class="card-text" id="last-time">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                              <tr>
+                                <th scope="col">Zeitpunkt</th>
+                                <th scope="col">Sensor</th>
+                                <th scope="col">Wert</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for measurement in short_history %}
+                                <tr>
+                                    <td>{{ measurement.time|iso8601_to_readable }}</td>
+                                    <td>{{ measurement.sensor }}</td>
+                                   <td>
+                                    {% if "temp" in measurement.sensor %}
+                                        {{ measurement.value  | default(0.0, true) | round(1, 'floor') }} &#8451;
+                                    {% elif "soil" in measurement.sensor %}
+                                        {{ current.soil_moisture_1 | default(0, true) | round | int }} %
+                                    {% elif "humidity" in measurement.sensor %}
+                                        {{ current.humidity | default(0, true) | round | int }} %
+                                    {% elif "co2" in measurement.sensor %}
+                                        {{ current.co2 | default(0, true) | round | int }} %
+                                    {% endif %}
+                                {% endfor %}
+                                </td>
+                              </tr>
+                          </table>
+                    </p>
                 </div>
             </div>
         </div>
@@ -45,7 +72,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-co2">{{ current.soil_moisture_1 | default(0, true) | round | int }} %</p>
+                            <p class="card-text" id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +80,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-soil-moisture">{{ current.soil_moisture_2 | default(0, true) | round | int }} %</p>
+                            <p class="card-text" id="last-soil-moisture-2">{{ current.soil_moisture_2 | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
@@ -98,9 +125,6 @@
     </div>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.0/moment.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="/assets/js/index.js"></script>
 </body>
 </html>

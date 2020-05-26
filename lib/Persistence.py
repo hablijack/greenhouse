@@ -7,15 +7,21 @@ class Persistence:
 
     def __init__(self):
         self.client = InfluxDBClient(
-            host='localhost',
+            host='yggdrasil.fritz.box',
             port=8086,
-            username='root',
-            password='root',
+            username='greenhouse',
+            password='greenhouse',
             database='greenhouse')
         self.client.create_database('greenhouse')
 
     def write(self, json_data):
         self.client.write_points(json_data)
+
+    def get_short_history(self):
+        results = self.client.query('select * from /.*/ ORDER BY time DESC LIMIT 3')
+        result_list = list(results.get_points())
+        sorted_results = sorted(result_list, key=lambda x: x['time'], reverse=True)
+        return sorted_results
 
     def get_current_values(self):
         return {
