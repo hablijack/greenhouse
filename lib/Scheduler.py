@@ -52,6 +52,12 @@ class Scheduler:
             trigger='interval',
             seconds=60)
 
+        self.scheduler.add_job(
+            id='measure_light',
+            func=self.measure_light,
+            trigger='interval',
+            seconds=60)
+
         self.scheduler.start()
         self.measure_all_values()
 
@@ -62,6 +68,14 @@ class Scheduler:
             "fields": { "value": value, "sensor": key }
         }]
         self.persistence.write(json_body)
+
+    def measure_light(self):
+        value = random.uniform(1, 30)
+        if value != None:
+            self.persist(datetime.now(), 'light', value)
+        else: 
+            print("ERROR: Could not read from light sensor inside the box !")
+
 
     def measure_temp_inside(self):
         value = random.uniform(1, 30)

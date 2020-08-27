@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
     <meta charset="UTF-8" />
     <title>Habel Gewächshaus</title>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-2">
@@ -41,6 +41,8 @@
                                         {{ current.humidity | default(0, true) | round | int }} %
                                     {% elif "co2" in measurement.sensor %}
                                         {{ current.co2 | default(0, true) | round | int }} %
+                                    {% elif "light" in measurement.sensor %}
+                                        {{ current.light | default(0, true) | round | int }} %
                                     {% endif %}
                                 {% endfor %}
                                 </td>
@@ -53,7 +55,7 @@
         <div class="col-lg-10">
             <div class="row">
                 <div class="col-lg-2 ">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Aussen Temperatur <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
                             <p class="card-text" id="last-temp">{{ current.temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
@@ -61,7 +63,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2 ">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Innen Temperatur <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
                             <p class="card-text" id="last-temp">{{ current.temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
@@ -69,23 +71,26 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }} %</p>
+                            <h5 class="card-title">Boden Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h5>
+                            <p class="card-text">
+                                <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }}</span> % /
+                                <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) | round | int }}</span> %
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-soil-moisture-2">{{ current.soil_moisture_2 | default(0, true) | round | int }} %</p>
+                            <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
+                            <p class="card-text" id="last-light">{{ current.light | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Luft Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
                             <p class="card-text" id="last-humidity">{{ current.humidity | default(0, true) | round | int }} %</p>
@@ -93,17 +98,24 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="card">
+                    <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">CO2 Gehalt <i class="fa fa-cloud" aria-hidden="true"></i></h5>
                             <p class="card-text" id="last-placeholder">{{ current.co2 | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <img style="transform: scaleX(-1);" src="/assets/img/greenhouse.png"/>
+                            <img src="assets/img/greenhouse_light.png" class="d-none">
+                            <img src="assets/img/greenhouse_water_light.png" class="d-none">
+                            <img src="assets/img/greenhouse_water.png" class="d-none">
+                            <img id="greenhouse-display" src="assets/img/greenhouse.png" usemap="#image-map">
+                            <map name="image-map">
+                                <area  href="#" id="light-link-area" coords="8,135,60,120,101,97,117,75,133,46,143,17,140,1,30,13" shape="poly">
+                                <area href="#" id="water-link-area" coords="495,352,606,352,605,530,456,533,455,519,389,517,344,443,242,503,228,495,542,305,392,216,80,399,70,405,59,394,388,197,568,301,499,348,498,349" shape="poly">
+                            </map>
                         </div>
                     </div>
                 </div>
@@ -111,18 +123,16 @@
         </div>
     </div>
 
-    <div class="row justify-content-md-center">
+    <footer class="row justify-content-md-center">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body text-center" id="endpoints">
-                    <a id="endpoint-1" class="btn btn-info">Hourly</a>
-                    <a id="endpoint-2" class="btn btn-info">Daily</a>
-                    <a id="endpoint-3" class="btn btn-info">Weekly</a>
-                    <a id="endpoint-4" class="btn btn-info">Monthly</a>
+                    <a id="endpoint-1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Aktuell</a>
+                    <a id="endpoint-1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Historie</a>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src="/assets/js/index.js"></script>
