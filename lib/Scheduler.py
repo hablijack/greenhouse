@@ -49,7 +49,7 @@ class Scheduler:
         self.persistence.write(json_body)
 
     def update_display_stats(self):
-        values = self.presistence.get_current_values()
+        values = self.persistence.get_current_values()
         Display().render(values)
 
     def measure_dht_sensor(self):
