@@ -23,5 +23,4 @@ class HumidityAndTemperature():
                 # just keep going
                 time.sleep(2.0)
                 continue
-        print(temperature)
         return {'temperature': temperature, 'humidity': humidity}

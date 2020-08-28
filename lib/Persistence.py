@@ -25,66 +25,30 @@ class Persistence:
 
     def get_current_values(self):
         return {
-            "temp_outside": self.__get_current_temp_outside_value(),
-            "temp_inside": self.__get_current_temp_inside_value(),
-            "soil_moisture_1": self.__get_current_soil_moisture_1_value(),
-            "soil_moisture_2": self.__get_current_soil_moisture_2_value(),
-            "light": self.__get_current_light_value(),
-            "co2": self.__get_current_co2_value(),
-            "humidity": self.__get_current_humidity_value()
+            "air_temp_inside": self.__get_current_air_temp_inside_value(),
+            "light_inside": self.__get_current_light_inside_value(),
+            "humidity_inside": self.__get_current_humidity_inside_value()
         }
 
-    def __get_current_light_value(self):
-        results = self.client.query('select LAST("value") from light;')
-        resultsInList = list(results.get_points(measurement='light'))
+    def __get_current_light_inside_value(self):
+        results = self.client.query('select LAST("value") from light_inside;')
+        resultsInList = list(results.get_points(measurement='light_inside'))
         if not resultsInList:
             return None
         else:
             return resultsInList[0]['last']
 
-    def __get_current_temp_inside_value(self):
-        results = self.client.query('select LAST("value") from temp_inside;')
-        resultsInList = list(results.get_points(measurement='temp_inside'))
-        if not resultsInList:
-            return None
-        else:
-            return resultsInList[0]['last']
-
-    def __get_current_temp_outside_value(self):
-        results = self.client.query('select LAST("value") from temp_outside;')
-        resultsInList = list(results.get_points(measurement='temp_outside'))
-        if not resultsInList:
-            return None
-        else:
-            return resultsInList[0]['last']
-
-    def __get_current_soil_moisture_1_value(self):
-        results = self.client.query('select LAST("value") from soil_moisture_1')
-        resultsInList = list(results.get_points(measurement='soil_moisture_1'))
-        if not resultsInList:
-            return None
-        else:
-            return resultsInList[0]['last']
-
-    def __get_current_soil_moisture_2_value(self):
-        results = self.client.query('select LAST("value") from soil_moisture_2')
-        resultsInList = list(results.get_points(measurement='soil_moisture_2'))
+    def __get_current_air_temp_inside_value(self):
+        results = self.client.query('select LAST("value") from air_temp_inside;')
+        resultsInList = list(results.get_points(measurement='air_temp_inside'))
         if not resultsInList:
             return None
         else:
             return resultsInList[0]['last']
 
     def __get_current_humidity_value(self):
-        results = self.client.query('select LAST("value") from humidity')
-        resultsInList = list(results.get_points(measurement='humidity'))
-        if not resultsInList:
-            return None
-        else:
-            return resultsInList[0]['last']
-
-    def __get_current_co2_value(self):
-        results = self.client.query('select LAST("value") from co2')
-        resultsInList = list(results.get_points(measurement='co2'))
+        results = self.client.query('select LAST("value") from humidity_inside')
+        resultsInList = list(results.get_points(measurement='humidity_inside'))
         if not resultsInList:
             return None
         else:

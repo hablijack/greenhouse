@@ -36,13 +36,13 @@
                                     {% if "temp" in measurement.sensor %}
                                         {{ measurement.value  | default(0.0, true) | round(1, 'floor') }} &#8451;
                                     {% elif "soil" in measurement.sensor %}
-                                        {{ current.soil_moisture_1 | default(0, true) | round | int }} %
+                                        {{ current.value | default(0, true) | round | int }} %
                                     {% elif "humidity" in measurement.sensor %}
-                                        {{ current.humidity | default(0, true) | round | int }} %
+                                        {{ current.value | default(0, true) | round | int }} %
                                     {% elif "co2" in measurement.sensor %}
-                                        {{ current.co2 | default(0, true) | round | int }} %
+                                        {{ current.value | default(0, true) | round | int }} %
                                     {% elif "light" in measurement.sensor %}
-                                        {{ current.light | default(0, true) | round | int }} %
+                                        {{ current.value | default(0, true) }} %
                                     {% endif %}
                                 {% endfor %}
                                 </td>
@@ -58,7 +58,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Aussen Temperatur <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
+                            <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Innen Temperatur <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
+                            <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-light">{{ current.light | default(0, true) | round | int }} %</p>
+                            <p class="card-text" id="last-light">{{ current.light_inside | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Luft Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
-                            <p class="card-text" id="last-humidity">{{ current.humidity | default(0, true) | round | int }} %</p>
+                            <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
                 </div>
