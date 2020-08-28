@@ -5,17 +5,17 @@ import time
 import board
 import adafruit_dht
 
-class DHT():
+class HumidityAndTemperature():
 
-    DHT_DEVICE = adafruit_dht.DHT22(board.D26)
+    DHT_SENSOR = adafruit_dht.DHT22(board.D26)
 
     def read(self):
         temperature = None
         humidity = None
         while temperature == None and humidity == None:
             try:
-                temperature = self.DHT_DEVICE.temperature
-                humidity = self.DHT_DEVICE.humidity
+                temperature = self.DHT_SENSOR.temperature
+                humidity = self.DHT_SENSOR.humidity
             except RuntimeError as error:
                 print(error)
                 # Errors happen fairly often, 
