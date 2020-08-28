@@ -17,9 +17,11 @@ class DHT():
                 temperature = self.DHT_DEVICE.temperature
                 humidity = self.DHT_DEVICE.humidity
             except RuntimeError as error:
+                print(error)
                 # Errors happen fairly often, 
                 # DHT's are hard to read, 
                 # just keep going
                 time.sleep(2.0)
                 continue
+        print(temperature)
         return {'temperature': temperature, 'humidity': humidity}
