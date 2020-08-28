@@ -5,19 +5,21 @@ import time
 import board
 import adafruit_dht
 
-class AirTempInside():
+class DHT():
+
+    DHT_DEVICE = adafruit_dht.DHT22(board.D26)
 
     def read(self):
         temperature = None
-        while temperature == None:
+        humidity = None
+        while temperature == None and humidity == None:
             try:
-                dhtDevice = adafruit_dht.DHT22(board.D26)
-                temperature = dhtDevice.temperature
-                dhtDevice.exit()
+                temperature = self.DHT_DEVICE.temperature
+                humidity = self.DHT_DEVICE.humidity
             except RuntimeError as error:
                 # Errors happen fairly often, 
                 # DHT's are hard to read, 
                 # just keep going
                 time.sleep(2.0)
                 continue
-        return temperature
+        return {'temperature': temperature, 'humidity': humidity}

@@ -6,8 +6,7 @@ import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 
-from lib.Humidity import Humidity
-from lib.AirTempInside import AirTempInside
+from lib.DHT import DHT
 
 
 class Scheduler:
@@ -18,16 +17,8 @@ class Scheduler:
         atexit.register(lambda: self.scheduler.shutdown())
 
         self.scheduler.add_job(
-            id='measure_air_temp_inside',
-            func=self.measure,
-            args=[AirTempInside, 'air_temp_inside'],
-            trigger='interval',
-            seconds=60)
-
-        self.scheduler.add_job(
-            id='measure_humidity',
-            func=self.measure,
-            args=[Humidity, 'humidity'],
+            id='measure_dht',
+            func=self.measure_dht,
             trigger='interval',
             seconds=60)
 
@@ -42,13 +33,12 @@ class Scheduler:
         }]
         self.persistence.write(json_body)
 
-    def measure(self, sensor, id):
-        value = sensor().read()
-        if value != None:
-            self.persist(datetime.now(), id, value)
-        else: 
-            print("ERROR: Could not read from " + id + " sensor!")
+    def measure_dht(self):
+        values = DHT().read()
+        if values['temperature']:
+            self.persist(datetime.now(), 'air_temp_inside', values['temperature'])
+        if values['humidity']:
+            self.persist(datetime.now(), 'humidity_inside', values['humidity'])
 
     def measure_all_values(self):
-        self.measure(Humidity, 'humidity')
-        self.measure(AirTempInside, 'air_temp_inside')
+        self.measure_dht()
