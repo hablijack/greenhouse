@@ -6,12 +6,13 @@ from flask import Flask, request, render_template, Response, send_from_directory
 from lib.Persistence import Persistence
 from lib.Scheduler import Scheduler
 from datetime import datetime
+import dateutil.parser
 
 app = Flask(__name__)
 
 @app.template_filter('iso8601_to_readable')
 def iso8601_to_readable(value):
-    return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ").strftime('%H:%M:%S')
+    return dateutil.parser.parse(value).strftime('%H:%M:%S')
 
 @app.route('/assets/<path:path>')
 def send_assets(path):
