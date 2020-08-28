@@ -36,13 +36,13 @@
                                     {% if "temp" in measurement.sensor %}
                                         {{ measurement.value  | default(0.0, true) | round(1, 'floor') }} &#8451;
                                     {% elif "soil" in measurement.sensor %}
-                                        {{ current.value | default(0, true) | round | int }} %
+                                        {{ measurement.value | default(0, true) | round | int }} %
                                     {% elif "humidity" in measurement.sensor %}
-                                        {{ current.value | default(0, true) | round | int }} %
+                                        {{ measurement.value | default(0, true) | round | int }} %
                                     {% elif "co2" in measurement.sensor %}
-                                        {{ current.value | default(0, true) | round | int }} %
+                                        {{ measurement.value | default(0, true) | round | int }} %
                                     {% elif "light" in measurement.sensor %}
-                                        {{ current.value | default(0, true) }} %
+                                        {{ measurement.value | default(0, true) }}
                                     {% endif %}
                                 {% endfor %}
                                 </td>

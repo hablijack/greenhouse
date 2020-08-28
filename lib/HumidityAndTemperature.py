@@ -17,7 +17,7 @@ class HumidityAndTemperature():
                 temperature = self.DHT_SENSOR.temperature
                 humidity = self.DHT_SENSOR.humidity
             except RuntimeError as error:
-                print(error)
+                #print(error)
                 # Errors happen fairly often, 
                 # DHT's are hard to read, 
                 # just keep going

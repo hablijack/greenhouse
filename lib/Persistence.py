@@ -46,7 +46,7 @@ class Persistence:
         else:
             return resultsInList[0]['last']
 
-    def __get_current_humidity_value(self):
+    def __get_current_humidity_inside_value(self):
         results = self.client.query('select LAST("value") from humidity_inside')
         resultsInList = list(results.get_points(measurement='humidity_inside'))
         if not resultsInList:
