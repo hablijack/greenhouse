@@ -70,7 +70,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-light">{{ current.light_inside | default(0, true) | round | int }} lux</p>
+                            <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) }} lux</p>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                                     {% elif "co2" in measurement.sensor %}
                                         {{ measurement.value | default(0, true) | round | int }} %
                                     {% elif "light" in measurement.sensor %}
-                                        {{ measurement.value | default(0, true) | round | int }} lux
+                                        {{ measurement.value | default(0.0, true) }} lux
                                     {% endif %}
                                 {% endfor %}
                                 </td>
