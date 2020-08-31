@@ -5,10 +5,8 @@ import atexit
 import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-
 from lib.sensors.HumidityAndTemperature import HumidityAndTemperature
 from lib.sensors.Light import Light
-
 from lib.Display import Display
 
 
