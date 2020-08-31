@@ -80,7 +80,7 @@
                 <div class="col-lg-2 mb-3 pl-0">
                     <div class="card ok">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Luft Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h4>
+                            <h5 class="card-title">Luft innen <i class="fa fa-tint" aria-hidden="true"></i></h4>
                             <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                 <div class="col-lg-2 mb-3 pl-0">
                     <div class="card ok">
                         <div class="card-body text-center">
-                            <h5 class="card-title">CO2 Gehalt <i class="fa fa-cloud" aria-hidden="true"></i></h5>
+                            <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
                             <p class="card-text" id="last-placeholder">{{ current.co2 | default(0, true) | round | int }} %</p>
                         </div>
                     </div>
