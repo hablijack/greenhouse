@@ -37,6 +37,7 @@ class Scheduler:
 
         self.scheduler.start()
         self.measure_all_values()
+        self.update_display_stats()
 
     def persist(self, timestamp, key, value):
         json_body = [{
