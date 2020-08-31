@@ -17,7 +17,7 @@ class Display:
         self.OLED_DISPLAY.begin()
         self.OLED_DISPLAY.clear()
         self.OLED_DISPLAY.display()
-        font = ImageFont.truetype("arial.ttf", 16)
+        font = ImageFont.truetype("monofont.ttf", 8)
         image = Image.new('1', (self.OLED_DISPLAY.width, self.OLED_DISPLAY.height))
         draw = ImageDraw.Draw(image)
 
