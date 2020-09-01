@@ -24,6 +24,10 @@ def overview():
     short_history = persistence.get_short_history()
     return render_template('index.html', current=current, short_history=short_history)
 
+@app.route('/history')
+def history():
+    return render_template('history.html')
+
 if __name__ == '__main__':
     persistence = Persistence()
     scheduler = Scheduler(persistence)
