@@ -127,9 +127,9 @@
                             <tbody>
                                 {% for measurement in short_history %}
                                 <tr>
-                                    <td>{{ measurement.time|iso8601_to_readable }}</td>
+                                    <td class="text-left">{{ measurement.time|iso8601_to_readable }}</td>
                                     <td>{{ measurement.sensor }}</td>
-                                    <td>
+                                    <td class="text-right">
                                     {% if "temp" in measurement.sensor %}
                                         {{ measurement.value  | default(0.0, true) | round(1, 'floor') }} &#8451;
                                     {% elif "soil" in measurement.sensor %}
