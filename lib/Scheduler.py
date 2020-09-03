@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from lib.sensors.HumidityAndTemperature import HumidityAndTemperature
 from lib.sensors.Light import Light
+from lib.sensors.Battery import Battery
 from lib.Display import Display
 
 
@@ -16,6 +17,12 @@ class Scheduler:
         self.persistence = persistence
         self.scheduler = BackgroundScheduler()
         atexit.register(lambda: self.scheduler.shutdown())
+
+        self.scheduler.add_job(
+            id='measure_battery_state',
+            func=self.measure_battery_state,
+            trigger='interval',
+            minutes=10)
 
         self.scheduler.add_job(
             id='measure_dht_sensor',
@@ -51,6 +58,15 @@ class Scheduler:
         values = self.persistence.get_current_values()
         Display().render(values)
 
+    def measure_battery_state(self):
+        values = Battery().read()
+        if values['voltage']:
+            self.persist(datetime.now(), 'voltage', values['voltage'])
+        if values['battery_power']:
+            self.persist(datetime.now(), 'battery_power', values['battery_power'])
+        if values['battery_capacity']:
+            self.persist(datetime.now(), 'battery_capacity', values['battery_capacity'])
+
     def measure_dht_sensor(self):
         values = HumidityAndTemperature().read()
         if values['temperature']:
@@ -66,3 +82,4 @@ class Scheduler:
     def measure_all_values(self):
         self.measure_dht_sensor()
         self.measure_light_sensor()
+        self.measure_battery_state()

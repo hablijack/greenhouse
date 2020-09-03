@@ -17,6 +17,22 @@ class Persistence:
     def write(self, json_data):
         self.client.write_points(json_data)
 
+    def get_air_temperature_inside_history(self):
+        results = self.client.query('select * from air_temp_inside ORDER BY time DESC')
+        measurements = list(results.get_points())
+        result_list = []
+        for measurement in measurements:
+            result_list.append({'t': measurement['time'], 'y': measurement['value']})
+        return result_list
+
+    def get_air_temperature_outside_history(self):
+        results = self.client.query('select * from air_temp_outside ORDER BY time DESC')
+        measurements = list(results.get_points())
+        result_list = []
+        for measurement in measurements:
+            result_list.append({'t': measurement['time'], 'y': measurement['value']})
+        return result_list
+
     def get_short_history(self):
         results = self.client.query('select * from /.*/ ORDER BY time DESC LIMIT 3')
         result_list = list(results.get_points())

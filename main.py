@@ -7,6 +7,8 @@ from lib.Persistence import Persistence
 from lib.Scheduler import Scheduler
 from datetime import datetime
 import dateutil.parser
+from flask import jsonify
+from datetime import date
 
 app = Flask(__name__)
 
@@ -27,6 +29,14 @@ def overview():
 @app.route('/history')
 def history():
     return render_template('history.html')
+
+@app.route('/history/air_temperature_inside')
+def air_temperature_inside():
+    return jsonify(persistence.get_air_temperature_inside_history())
+
+@app.route('/history/air_temperature_outside')
+def air_temperature_outside():
+    return jsonify(persistence.get_air_temperature_inside_history())
 
 if __name__ == '__main__':
     persistence = Persistence()
