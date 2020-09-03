@@ -37,7 +37,7 @@ class Battery():
 
     def read(self):   
         try:
-            voltage = self.INA260_SENSOR.power
+            voltage = self.INA260_SENSOR.voltage
             return {
                 'battery_voltage': voltage, 
                 'power_consumption': self.INA260_SENSOR.power,
