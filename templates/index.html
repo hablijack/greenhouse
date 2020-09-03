@@ -46,7 +46,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Luft innen <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
+                            <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">Luft außen <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
+                            <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
                         </div>
                     </div>
                 </div>
