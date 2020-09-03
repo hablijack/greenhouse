@@ -37,3 +37,9 @@ html, body {
     color: white;
 } 
 
+.table-sm {
+    font-size: 14px;
+}
+.table-sm td, .table-sm th {
+    padding: .1rem;
+}

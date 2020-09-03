@@ -145,7 +145,7 @@
                                     {% elif "capacity" in measurement.sensor %}
                                         {{ measurement.value }} %
                                     {% elif "power_consumption" in measurement.sensor %}
-                                        {{ measurement.value | default(0.0, true) | round(2, 'floor') }} mW
+                                        {{ measurement.value | default(0.0, true) | round | int }} mW
                                     {% endif %}
                                 {% endfor %}
                                 </td>
