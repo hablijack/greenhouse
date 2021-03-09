@@ -60,10 +60,10 @@ class Scheduler:
 
     def measure_battery_state(self):
         values = Battery().read()
-        if values['voltage']:
-            self.persist(datetime.now(), 'voltage', values['voltage'])
-        if values['battery_power']:
-            self.persist(datetime.now(), 'battery_power', values['battery_power'])
+        if values['battery_voltage']:
+            self.persist(datetime.now(), 'battery_voltage', values['battery_voltage'])
+        if values['power_consumption']:
+            self.persist(datetime.now(), 'power_consumption', values['power_consumption'])
         if values['battery_capacity']:
             self.persist(datetime.now(), 'battery_capacity', values['battery_capacity'])
 
