@@ -8,6 +8,8 @@ from datetime import datetime
 from lib.sensors.HumidityAndTemperature import HumidityAndTemperature
 from lib.sensors.Light import Light
 from lib.sensors.Battery import Battery
+from lib.sensors.SoilTempInside import SoilTempInside
+from lib.sensors.AirTempOutside import AirTempOutside
 from lib.Display import Display
 
 
@@ -33,6 +35,18 @@ class Scheduler:
         self.scheduler.add_job(
             id='measure_light_sensor',
             func=self.measure_light_sensor,
+            trigger='interval',
+            minutes=5)
+
+        self.scheduler.add_job(
+            id='measure_air_temp_outside_sensor',
+            func=self.measure_air_temp_outside_sensor,
+            trigger='interval',
+            minutes=5)
+
+        self.scheduler.add_job(
+            id='measure_soil_temp_inside_sensor',
+            func=self.measure_soil_temp_inside_sensor,
             trigger='interval',
             minutes=5)
 
@@ -73,6 +87,16 @@ class Scheduler:
             self.persist(datetime.now(), 'air_temp_inside', values['temperature'])
         if values['humidity']:
             self.persist(datetime.now(), 'humidity_inside', values['humidity'])
+
+    def measure_air_temp_outside_sensor(self):
+        value = AirTempOutside().read()
+        if value:
+            self.persist(datetime.now(), 'air_temp_outside', value)
+
+    def measure_soil_temp_inside_sensor(self):
+        value = SoilTempInside().read()
+        if value:
+            self.persist(datetime.now(), 'soil_temp_inside', value)
 
     def measure_light_sensor(self):
         value = Light().read()

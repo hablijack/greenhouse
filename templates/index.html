@@ -61,10 +61,11 @@
                 <div class="col-lg-2 mb-3 pl-0">
                     <div class="card ok">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Boden Feuchte1 <i class="fa fa-tint" aria-hidden="true"></i></h5>
+                            <h5 class="card-title">Boden Feuchte <i class="fa fa-tint" aria-hidden="true"></i></h5>
                             <p class="card-text">
                                 <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }}</span> % /
-                                <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) | round | int }}</span> %
+                                <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) | round | int }}</span> % /
+                                <span id="last-soil-moisture-1">{{ current.soil_moisture_3 | default(0, true) | round | int }}</span> %
                             </p>
                         </div>
                     </div>
