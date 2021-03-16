@@ -24,7 +24,7 @@ class Scheduler:
             id='measure_battery_state',
             func=self.measure_battery_state,
             trigger='interval',
-            minutes=10)
+            minutes=9)
 
         self.scheduler.add_job(
             id='measure_dht_sensor',
@@ -42,19 +42,19 @@ class Scheduler:
             id='measure_air_temp_outside_sensor',
             func=self.measure_air_temp_outside_sensor,
             trigger='interval',
-            minutes=5)
+            minutes=6)
 
         self.scheduler.add_job(
             id='measure_soil_temp_inside_sensor',
             func=self.measure_soil_temp_inside_sensor,
             trigger='interval',
-            minutes=5)
+            minutes=7)
 
         self.scheduler.add_job(
             id='update_display_stats',
             func=self.update_display_stats,
             trigger='interval',
-            minutes=1)
+            minutes=11)
 
         self.scheduler.start()
         self.measure_all_values()
