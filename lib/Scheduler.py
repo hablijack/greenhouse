@@ -10,6 +10,7 @@ from lib.sensors.Light import Light
 from lib.sensors.Battery import Battery
 from lib.sensors.SoilTempInside import SoilTempInside
 from lib.sensors.AirTempOutside import AirTempOutside
+from lib.sensors.Gas import Gas
 from lib.Display import Display
 
 
@@ -21,10 +22,16 @@ class Scheduler:
         atexit.register(lambda: self.scheduler.shutdown())
 
         self.scheduler.add_job(
+            id='measure_gas_sensor',
+            func=self.measure_gas_sensor,
+            trigger='interval',
+            minutes=10)
+
+        self.scheduler.add_job(
             id='measure_battery_state',
             func=self.measure_battery_state,
             trigger='interval',
-            minutes=9)
+            minutes=15)
 
         self.scheduler.add_job(
             id='measure_dht_sensor',
@@ -42,19 +49,19 @@ class Scheduler:
             id='measure_air_temp_outside_sensor',
             func=self.measure_air_temp_outside_sensor,
             trigger='interval',
-            minutes=6)
+            minutes=10)
 
         self.scheduler.add_job(
             id='measure_soil_temp_inside_sensor',
             func=self.measure_soil_temp_inside_sensor,
             trigger='interval',
-            minutes=7)
+            minutes=10)
 
         self.scheduler.add_job(
             id='update_display_stats',
             func=self.update_display_stats,
             trigger='interval',
-            minutes=11)
+            minutes=15)
 
         self.scheduler.start()
         self.measure_all_values()
@@ -87,6 +94,11 @@ class Scheduler:
             self.persist(datetime.now(), 'air_temp_inside', values['temperature'])
         if values['humidity']:
             self.persist(datetime.now(), 'humidity_inside', values['humidity'])
+
+    def measure_gas_sensor(self):
+        value = Gas().read()
+        if value:
+            self.persist(datetime.now(), 'co2_inside', value)
 
     def measure_air_temp_outside_sensor(self):
         value = AirTempOutside().read()

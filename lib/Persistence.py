@@ -45,8 +45,17 @@ class Persistence:
             "light_inside": self.__get_current_light_inside_value(),
             "humidity_inside": self.__get_current_humidity_inside_value(),
             "soil_temp_inside": self.__get_current_soil_temp_inside_value(),
-            "air_temp_outside": self.__get_current_air_temp_outside_value()
+            "air_temp_outside": self.__get_current_air_temp_outside_value(),
+            "co2_inside": self.__get_current_co2_inside_value()
         }
+
+    def __get_current_co2_inside_value(self):
+        results = self.client.query('select LAST("value") from co2_inside;')
+        resultsInList = list(results.get_points(measurement='co2_inside'))
+        if not resultsInList:
+            return None
+        else:
+            return resultsInList[0]['last']
 
     def __get_current_light_inside_value(self):
         results = self.client.query('select LAST("value") from light_inside;')

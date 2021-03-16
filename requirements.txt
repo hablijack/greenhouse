@@ -3,6 +3,6 @@ waitress
 apscheduler
 fsspec
 influxdb
-adafruit-circuitpython-dht
-adafruit-circuitpython-ccs811
 adafruit-circuitpython-ads1x15
+adafruit_dht
+adafruit-circuitpython-sgp30

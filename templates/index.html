@@ -90,7 +90,7 @@
                     <div class="card ok">
                         <div class="card-body text-center">
                             <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-placeholder">{{ current.co2 | default(0, true) | round | int }} %</p>
+                            <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) | int }} ppm</p>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                                     {% elif "humidity" in measurement.sensor %}
                                         {{ measurement.value | default(0, true) | round | int }} %
                                     {% elif "co2" in measurement.sensor %}
-                                        {{ measurement.value | default(0, true) | round | int }} %
+                                        {{ measurement.value | default(0, true) | round | int }} ppm
                                     {% elif "light" in measurement.sensor %}
                                         {{ measurement.value | default(0.0, true) | round(2, 'floor') }} lux
                                     {% elif "voltage" in measurement.sensor %}
