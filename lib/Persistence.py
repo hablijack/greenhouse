@@ -34,7 +34,7 @@ class Persistence:
         return result_list
 
     def get_short_history(self):
-        results = self.client.query('select * from /.*/ ORDER BY time DESC LIMIT 3')
+        results = self.client.query('select * from /.*/ ORDER BY time DESC LIMIT 2')
         result_list = list(results.get_points())
         sorted_results = sorted(result_list, key=lambda x: x['time'], reverse=True)
         return sorted_results
@@ -91,7 +91,7 @@ class Persistence:
 
     def __get_current_soil_temp_inside_value(self):
         results = self.client.query('select LAST("value") from soil_temp_inside')
-        resultsInList = list(results.get_points(measurement='air_temp_inside'))
+        resultsInList = list(results.get_points(measurement='soil_temp_inside'))
         if not resultsInList:
             return None
         else:
