@@ -39,6 +39,15 @@ class Persistence:
         sorted_results = sorted(result_list, key=lambda x: x['time'], reverse=True)
         return sorted_results
 
+    def __get_current_battery_capacity_value(self):
+        results = self.client.query('select LAST("value") from battery_capacity;')
+        resultsInList = list(results.get_points(measurement='battery_capacity'))
+        if not resultsInList:
+            return None
+        else:
+            return resultsInList[0]['last']
+
+
     def get_current_values(self):
         return {
             "air_temp_inside": self.__get_current_air_temp_inside_value(),
@@ -46,7 +55,8 @@ class Persistence:
             "humidity_inside": self.__get_current_humidity_inside_value(),
             "soil_temp_inside": self.__get_current_soil_temp_inside_value(),
             "air_temp_outside": self.__get_current_air_temp_outside_value(),
-            "co2_inside": self.__get_current_co2_inside_value()
+            "co2_inside": self.__get_current_co2_inside_value(),
+            "battery_capacity": self.__get_current_battery_capacity_value()
         }
 
     def __get_current_co2_inside_value(self):

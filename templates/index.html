@@ -90,6 +90,8 @@
                         </div>
                     </div>
                 </div>
+	</div>
+	<div class="row">
                 <div class="col-lg-10">
                     <div class="card h-100">
                         <div class="card-body text-center">
@@ -113,8 +115,7 @@
                            </p>
                        </div>
                    </div>
-               </div>
-               <div class="col-lg-2 mb-3">
+
                    <div class="card ok">
                        <div class="card-body text-center">
                            <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i></h5>
@@ -123,8 +124,6 @@
                            </p>
                        </div>
                    </div>
-               </div>
-               <div class="col-lg-2 mb-3">
                    <div class="card ok">
                        <div class="card-body text-center">
                            <h5 class="card-title">Boden Feuchte 3 <i class="fa fa-tint" aria-hidden="true"></i></h5>
@@ -133,7 +132,17 @@
                            </p>
                        </div>
                    </div>
+
+                   <div class="card ok">
+                       <div class="card-body text-center">
+                           <h5 class="card-title">Batterie <i class="fa fa-battery" aria-hidden="true"></i></h5>
+                           <p class="card-text">
+                               <span id="last-battery">{{ current.battery_capacity | default(0, true) | round | int }}</span> %
+                           </p>
+                       </div>
+                   </div>
                </div>
+
 
             </div>
         </div>
