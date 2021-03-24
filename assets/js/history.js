@@ -1,17 +1,17 @@
 
-function getAirTemperaturesInside(){
+function getAirTemperaturesInside() {
     return $.ajax({
         url: "/history/air_temperature_inside",
     });
 }
 
-function getAirTemperaturesOutside(){
+function getAirTemperaturesOutside() {
     return $.ajax({
         url: "/history/air_temperature_outside",
     });
 }
 
-function drawAirTemperatureChart(airInsideMetrics, airOutsideMetrics){
+function drawAirTemperatureChart(airInsideMetrics, airOutsideMetrics) {
     var ctx = document.getElementById('air-temperature').getContext('2d');
     ctx.canvas.width = 1000;
     ctx.canvas.height = 300;
@@ -45,7 +45,7 @@ function drawAirTemperatureChart(airInsideMetrics, airOutsideMetrics){
                         unit: 'minute',
                         unitStepSize: 1,
                         displayFormats: {
-                          'minute': 'HH:MM:ss'
+                            'minute': 'HH:MM:ss'
                         }
                     },
                     ticks: {
@@ -75,9 +75,8 @@ function drawAirTemperatureChart(airInsideMetrics, airOutsideMetrics){
     var chart = new Chart(ctx, cfg);
 }
 
-$(document).ready(function(){
-    $.when(getAirTemperaturesInside(), getAirTemperaturesOutside()).done(function(air_inside, air_outside){
-        console.log(air_inside[0]);
-        drawAirTemperatureChart(air_inside[0], [])
+$(document).ready(function () {
+    $.when(getAirTemperaturesInside(), getAirTemperaturesOutside()).done(function (air_inside, air_outside) {
+        drawAirTemperatureChart(air_inside[0], air_outside[0])
     });
 });

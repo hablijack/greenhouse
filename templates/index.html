@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="h-100">
+
 <head>
     <meta charset="UTF-8" />
     <title>Habel Gewächshaus</title>
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
+    <link rel='stylesheet prefetch'
+        href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
+    <link rel='stylesheet prefetch'
+        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -17,10 +20,11 @@
             <img src="/assets/img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
             Gewächshaus
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-to1ggler-icon"></span>
         </button>
-        
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -36,128 +40,147 @@
         </div>
     </nav>
 
-<div class="container-fluid">
-    
-    <div class="row">
-       
-        <div class="col-lg-10">
-            <div class="row">
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Luft innen <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Luft außen <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Boden <i class="fa fa-thermometer-half" aria-hidden="true"></i></h5>
-                            <p id="last-soil-temp-inside" class="card-text">{{ current.soil_temp_inside | default(0.0, true) | round(1, 'floor') }} &#8451;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) | round(2, 'floor') }} lux</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Luft innen <i class="fa fa-tint" aria-hidden="true"></i></h4>
-                            <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0, true) | round | int }} %</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <div class="card ok">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
-                            <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) | int }} ppm</p>
-                        </div>
-                    </div>
-                </div>
-	</div>
-	<div class="row">
-                <div class="col-lg-10">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <img src="assets/img/greenhouse_light.png" class="d-none">
-                            <img src="assets/img/greenhouse_water_light.png" class="d-none">
-                            <img src="assets/img/greenhouse_water.png" class="d-none">
-                            <img id="greenhouse-display" src="assets/img/greenhouse.png" usemap="#image-map">
-                            <map name="image-map">
-                                <area  href="#" id="light-link-area" coords="8,135,60,120,101,97,117,75,133,46,143,17,140,1,30,13" shape="poly">
-                                <area href="#" id="water-link-area" coords="495,352,606,352,605,530,456,533,455,519,389,517,344,443,242,503,228,495,542,305,392,216,80,399,70,405,59,394,388,197,568,301,499,348,498,349" shape="poly">
-                            </map>
-                        </div>
-                    </div>
-                </div>
-               <div class="col-lg-2 mb-3">
-                   <div class="card ok">
-                       <div class="card-body text-center">
-                           <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                           <p class="card-text">
-                               <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }}</span> %
-                           </p>
-                       </div>
-                   </div>
+    <div class="container-fluid">
 
-                   <div class="card ok">
-                       <div class="card-body text-center">
-                           <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                           <p class="card-text">
-                               <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) | round | int }}</span> %
-                           </p>
-                       </div>
-                   </div>
-                   <div class="card ok">
-                       <div class="card-body text-center">
-                           <h5 class="card-title">Boden Feuchte 3 <i class="fa fa-tint" aria-hidden="true"></i></h5>
-                           <p class="card-text">
-                               <span id="last-soil-moisture-1">{{ current.soil_moisture_3 | default(0, true) | round | int }}</span> %
-                           </p>
-                       </div>
-                   </div>
+        <div class="row">
 
-                   <div class="card ok">
-                       <div class="card-body text-center">
-                           <h5 class="card-title">Batterie <i class="fa fa-battery" aria-hidden="true"></i></h5>
-                           <p class="card-text">
-                               <span id="last-battery">{{ current.battery_capacity | default(0, true) | round | int }}</span> %
-                           </p>
-                       </div>
-                   </div>
-               </div>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Luft innen <i class="fa fa-thermometer-half"
+                                        aria-hidden="true"></i></h5>
+                                <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) |
+                                    round(1, 'floor') }} &#8451;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Luft außen <i class="fa fa-thermometer-half"
+                                        aria-hidden="true"></i></h5>
+                                <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) |
+                                    round(1, 'floor') }} &#8451;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Boden <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                </h5>
+                                <p id="last-soil-temp-inside" class="card-text">{{ current.soil_temp_inside |
+                                    default(0.0, true) | round(1, 'floor') }} &#8451;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
+                                <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) |
+                                    round(2, 'floor') }} lux</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Luft innen <i class="fa fa-tint" aria-hidden="true"></i></h4>
+                                    <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0,
+                                        true) | round | int }} %</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <div class="card ok">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
+                                <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) |
+                                    int }} ppm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <img src="assets/img/greenhouse_light.png" class="d-none">
+                                <img src="assets/img/greenhouse_water_light.png" class="d-none">
+                                <img src="assets/img/greenhouse_water.png" class="d-none">
+                                <img id="greenhouse-display" src="assets/img/greenhouse.png" usemap="#image-map">
+                                <map name="image-map">
+                                    <area href="#" id="light-link-area"
+                                        coords="8,135,60,120,101,97,117,75,133,46,143,17,140,1,30,13" shape="poly">
+                                    <area href="#" id="water-link-area"
+                                        coords="495,352,606,352,605,530,456,533,455,519,389,517,344,443,242,503,228,495,542,305,392,216,80,399,70,405,59,394,388,197,568,301,499,348,498,349"
+                                        shape="poly">
+                                </map>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="card ok mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i>
+                                </h5>
+                                <p class="card-text">
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) |
+                                        round | int }}</span> %
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card ok mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i>
+                                </h5>
+                                <p class="card-text">
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) |
+                                        round | int }}</span> %
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card ok mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Boden Feuchte 3 <i class="fa fa-tint" aria-hidden="true"></i>
+                                </h5>
+                                <p class="card-text">
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_3 | default(0, true) |
+                                        round | int }}</span> %
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card ok mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Batterie <i class="fa fa-battery" aria-hidden="true"></i></h5>
+                                <p class="card-text">
+                                    <span id="last-battery">{{ current.battery_capacity | default(0, true) | round | int
+                                        }}</span> %
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
 
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2 pl-0">
-            <div class="card h-100">
-                <div class="short-history card-body text-center p-0">
-                    <h5 class="card-title pt-3 pb-3 mb-0">
-                        Letzte Updates <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    </h5>
+            <div class="col-lg-2 pl-0">
+                <div class="card h-100">
+                    <div class="short-history card-body text-center p-0">
+                        <h5 class="card-title pt-3 pb-3 mb-0">
+                            Letzte Updates <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </h5>
                         <table class="card-text light table table-hover table-sm" id="last-time">
                             <thead>
                                 <tr>
-                                <th scope="col">Zeitpunkt</th>
-                                <th scope="col">Sensor</th>
-                                <th scope="col">Wert</th>
+                                    <th scope="col">Zeitpunkt</th>
+                                    <th scope="col">Sensor</th>
+                                    <th scope="col">Wert</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -166,27 +189,27 @@
                                     <td class="text-left">{{ measurement.time|iso8601_to_readable }}</td>
                                     <td>{{ measurement.sensor }}</td>
                                     <td class="text-right">
-                                    {% if "temp" in measurement.sensor %}
-                                        {{ measurement.value  | default(0.0, true) | round(1, 'floor') }} &#8451;
-                                    {% elif "soil" in measurement.sensor %}
+                                        {% if "temp" in measurement.sensor %}
+                                        {{ measurement.value | default(0.0, true) | round(1, 'floor') }} &#8451;
+                                        {% elif "soil" in measurement.sensor %}
                                         {{ measurement.value | default(0, true) | round | int }} %
-                                    {% elif "humidity" in measurement.sensor %}
+                                        {% elif "humidity" in measurement.sensor %}
                                         {{ measurement.value | default(0, true) | round | int }} %
-                                    {% elif "co2" in measurement.sensor %}
+                                        {% elif "co2" in measurement.sensor %}
                                         {{ measurement.value | default(0, true) | round | int }} ppm
-                                    {% elif "light" in measurement.sensor %}
+                                        {% elif "light" in measurement.sensor %}
                                         {{ measurement.value | default(0.0, true) | round(2, 'floor') }} lux
-                                    {% elif "voltage" in measurement.sensor %}
+                                        {% elif "voltage" in measurement.sensor %}
                                         {{ measurement.value | default(0.0, true) | round(2, 'floor') }} V
-                                    {% elif "capacity" in measurement.sensor %}
+                                        {% elif "capacity" in measurement.sensor %}
                                         {{ measurement.value }} %
-                                    {% elif "power_consumption" in measurement.sensor %}
+                                        {% elif "power_consumption" in measurement.sensor %}
                                         {{ measurement.value | default(0.0, true) | round | int }} mW
-                                    {% endif %}                        
-                                   </td>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 {% endfor %}
-                            </table>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -203,4 +226,5 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src="/assets/js/index.js"></script>
 </body>
+
 </html>
