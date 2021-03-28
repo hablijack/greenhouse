@@ -69,7 +69,7 @@ class Scheduler:
             second=0)
 
         self.scheduler.add_job(
-            id='start_watering',
+            id='stop_watering',
             func=self.stop_watering1,
             trigger='cron',
             year='*',
