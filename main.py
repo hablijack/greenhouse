@@ -31,7 +31,7 @@ def overview():
 
 
 @app.route('/control')
-def history():
+def control():
     return render_template('control.html')
 
 
