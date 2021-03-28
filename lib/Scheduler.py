@@ -11,8 +11,6 @@ from lib.sensors.Battery import Battery
 from lib.sensors.SoilTempInside import SoilTempInside
 from lib.sensors.AirTempOutside import AirTempOutside
 from lib.sensors.Gas import Gas
-from lib.Display import Display
-
 
 class Scheduler:
 
@@ -57,15 +55,8 @@ class Scheduler:
             trigger='interval',
             minutes=10)
 
-        self.scheduler.add_job(
-            id='update_display_stats',
-            func=self.update_display_stats,
-            trigger='interval',
-            minutes=15)
-
         self.scheduler.start()
         self.measure_all_values()
-        self.update_display_stats()
 
     def persist(self, timestamp, key, value):
         json_body = [{
@@ -74,10 +65,6 @@ class Scheduler:
             "fields": { "value": value, "sensor": key }
         }]
         self.persistence.write(json_body)
-
-    def update_display_stats(self):
-        values = self.persistence.get_current_values()
-        Display().render(values)
 
     def measure_battery_state(self):
         values = Battery().read()

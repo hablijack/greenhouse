@@ -1,21 +1,27 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import gpiozero
+import RPi.GPIO as GPIO
 
 
 class Light():
 
+    def initialize(self):
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(13, GPIO.OUT)
+        GPIO.output(13, GPIO.HIGH)
+        GPIO.cleanup()
+
     def switch(self, state):
         try:
-            relay = gpiozero.OutputDevice(
-                19,
-                active_high=True,
-                initial_value=False
-            )
+            GPIO.setwarnings(False)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(13, GPIO.OUT)
             if state:
-                relay.on()
+                GPIO.output(13, GPIO.LOW)
             else:
-                relay.off()
+                GPIO.output(13, GPIO.HIGH)
+                GPIO.cleanup()
         except RuntimeError as error:
             return None

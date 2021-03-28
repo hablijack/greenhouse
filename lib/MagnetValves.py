@@ -1,28 +1,36 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import gpiozero
+import RPi.GPIO as GPIO
 
 
 class MagnetValves():
 
+
+    def initialize(self):
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup([19,5,6], GPIO.OUT)
+        GPIO.output([19,5,6], GPIO.HIGH)
+        GPIO.cleanup()
+
+
     def switch(self, valve_no, state):
         try:
-            gpio = -1
+            gpiopin = -1
             if valve_no == 1:
-                gpio = 13
+                gpiopin = 19
             elif valve_no == 2:
-                gpio = 6
+                gpiopin = 5
             elif valve_no == 3:
-                gpio = 5
-            relay = gpiozero.OutputDevice(
-                gpio,
-                active_high=True,
-                initial_value=False
-            )
+                gpiopin = 6
+            GPIO.setwarnings(False)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(gpiopin, GPIO.OUT)
             if state:
-                relay.on()
+                GPIO.output(gpiopin, GPIO.LOW)
             else:
-                relay.off()
+                GPIO.output(gpiopin, GPIO.HIGH)
+                GPIO.cleanup()
         except RuntimeError as error:
             return None
