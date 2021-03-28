@@ -75,7 +75,7 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8-10,17-19',
+            hour='8-11,17-20',
             minute='*/33',
             second=0)
 
