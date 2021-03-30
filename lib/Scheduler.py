@@ -137,6 +137,8 @@ class Scheduler:
             self.persist(datetime.now(), 'light_inside', value)
 
     def measure_all_values(self):
+        MagnetValves().initialize()
+        Light().initialize()
         self.measure_dht_sensor()
         self.measure_light_sensor()
         self.measure_battery_state()
