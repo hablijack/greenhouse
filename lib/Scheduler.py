@@ -141,4 +141,7 @@ class Scheduler:
         Light().initialize()
         self.measure_dht_sensor()
         self.measure_light_sensor()
+        self.measure_air_temp_outside_sensor()
+        self.measure_soil_temp_inside_sensor()
         self.measure_battery_state()
+        self.measure_gas_sensor()
