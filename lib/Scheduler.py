@@ -46,17 +46,17 @@ class Scheduler:
             trigger='interval',
             minutes=5)
 
-        self.scheduler.add_job(
-            id='measure_air_temp_outside_sensor',
-            func=self.measure_air_temp_outside_sensor,
-            trigger='interval',
-            minutes=10)
+        # self.scheduler.add_job(
+        #    id='measure_air_temp_outside_sensor',
+        #    func=self.measure_air_temp_outside_sensor,
+        #    trigger='interval',
+        #    minutes=10)
 
-        self.scheduler.add_job(
-            id='measure_soil_temp_inside_sensor',
-            func=self.measure_soil_temp_inside_sensor,
-            trigger='interval',
-            minutes=10)
+        # self.scheduler.add_job(
+        #    id='measure_soil_temp_inside_sensor',
+        #    func=self.measure_soil_temp_inside_sensor,
+        #    trigger='interval',
+        #    minutes=10)
 
         self.scheduler.add_job(
             id='start_watering',
@@ -142,7 +142,7 @@ class Scheduler:
         PlantLight().initialize()
         self.measure_dht_sensor()
         self.measure_light_sensor()
-        self.measure_air_temp_outside_sensor()
-        self.measure_soil_temp_inside_sensor()
+        # self.measure_air_temp_outside_sensor()
+        # self.measure_soil_temp_inside_sensor()
         self.measure_battery_state()
         self.measure_gas_sensor()
