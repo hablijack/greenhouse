@@ -12,6 +12,7 @@ from lib.sensors.SoilTempInside import SoilTempInside
 from lib.sensors.AirTempOutside import AirTempOutside
 from lib.sensors.Gas import Gas
 from lib.MagnetValves import MagnetValves
+from lib.PlantLight import PlantLight
 
 
 class Scheduler:
@@ -138,7 +139,7 @@ class Scheduler:
 
     def measure_all_values(self):
         MagnetValves().initialize()
-        Light().initialize()
+        PlantLight().initialize()
         self.measure_dht_sensor()
         self.measure_light_sensor()
         self.measure_air_temp_outside_sensor()

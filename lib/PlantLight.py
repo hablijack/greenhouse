@@ -4,7 +4,7 @@
 import RPi.GPIO as GPIO
 
 
-class Light():
+class PlantLight():
 
     def initialize(self):
         GPIO.setwarnings(False)
