@@ -65,8 +65,8 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8-10,17-19',
-            minute='*/30',
+            hour='8,9,10,17,18,19',
+            minute=0,
             second=0)
 
         self.scheduler.add_job(
@@ -76,8 +76,8 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8-11,17-20',
-            minute='*/33',
+            hour='8,9,10,17,18,19',
+            minute=1,
             second=0)
 
         self.scheduler.start()
