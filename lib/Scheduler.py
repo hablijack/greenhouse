@@ -11,6 +11,7 @@ from lib.sensors.Battery import Battery
 from lib.sensors.SoilTempInside import SoilTempInside
 from lib.sensors.AirTempOutside import AirTempOutside
 from lib.sensors.Gas import Gas
+from lib.sensors.Wifi import Wifi
 from lib.MagnetValves import MagnetValves
 from lib.PlantLight import PlantLight
 
@@ -43,6 +44,12 @@ class Scheduler:
         self.scheduler.add_job(
             id='measure_light_sensor',
             func=self.measure_light_sensor,
+            trigger='interval',
+            minutes=5)
+
+        self.scheduler.add_job(
+            id='measure_wifi_strength',
+            func=self.measure_wifi_strength,
             trigger='interval',
             minutes=5)
 
@@ -136,6 +143,11 @@ class Scheduler:
         value = Light().read()
         if value:
             self.persist(datetime.now(), 'light_inside', value)
+
+    def measure_wifi_strength(self):
+        value = Wifi().read()
+        if value:
+            self.persist(datetime.now(), 'wifi_strength', value)
 
     def measure_all_values(self):
         MagnetValves().initialize()

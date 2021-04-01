@@ -164,6 +164,16 @@
                                 </p>
                             </div>
                         </div>
+
+                        <div class="card ok mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Wifi <i class="fa fa-wifi" aria-hidden="true"></i></h5>
+                                <p class="card-text">
+                                    <span id="last-wifi">{{ current.wifi_strength | default(0, true) | round | int
+                                        }}</span> %
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
 
