@@ -5,7 +5,7 @@ html, body {
 
 .card.ok {
    color: white;
-   background-color: #388e3c;
+   background-color: #40c840;
 }
 .card .fa {
     color:white;
@@ -15,7 +15,7 @@ html, body {
     color: #434A54;
     background-color: white;
     border: none;
-    border: 1px solid #388e3c;
+    border: 1px solid #40c840;
 }
 
 .card p {
