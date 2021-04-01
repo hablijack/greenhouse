@@ -9,7 +9,7 @@ class Wifi():
     def read(self):
         try:
             cmd = subprocess.Popen(
-                'iwconfig wlp1s0', shell=True, stdout=subprocess.PIPE)
+                'iwconfig wlan0', shell=True, stdout=subprocess.PIPE)
             percent = 0
             for line in cmd.stdout:
                 output = line.decode("utf-8")
