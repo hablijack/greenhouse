@@ -55,9 +55,37 @@ html, body {
     background-color: #f7fdff;
 }
 
-.wifi_container {
+.history_container {
     border: 1px solid #343a40;
     border-radius: 10px;
     padding: 10px;
+}
+
+.wifi_container {
     background-color: #fffcf0;
+}
+.battery_container {
+    background-color: #f0fcf3;
+}
+.co2_container {
+    background-color: #ffede8;
+}
+.brightness_container {
+    background-color: #fff0fd;
+}
+.humidity_container {
+    background-color: #f2fcfc;
+}
+
+
+#control-container button {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    font-size: 50px;
+}
+
+#control-container button.active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }

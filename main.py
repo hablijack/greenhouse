@@ -10,6 +10,8 @@ from datetime import datetime
 import dateutil.parser
 from flask import jsonify
 from datetime import date
+from lib.MagnetValves import MagnetValves
+from lib.PlantLight import PlantLight
 
 app = Flask(__name__)
 
@@ -50,19 +52,58 @@ def history():
 @app.route('/history/air_temperature_inside')
 def air_temperature_inside():
     timefilter = request.args.get('timefilter')
-    return jsonify(persistence.get_air_temperature_inside_history(timefilter))
+    return jsonify(persistence.get_history_for(timefilter, 'air_temp_inside'))
 
 
 @app.route('/history/air_temperature_outside')
 def air_temperature_outside():
     timefilter = request.args.get('timefilter')
-    return jsonify(persistence.get_air_temperature_outside_history(timefilter))
+    return jsonify(persistence.get_history_for(timefilter, 'air_temp_outside'))
 
 
 @app.route('/history/wifi_strength')
 def wifi_strength():
     timefilter = request.args.get('timefilter')
-    return jsonify(persistence.get_wifi_strength_history(timefilter))
+    return jsonify(persistence.get_history_for(timefilter, 'wifi_strength'))
+
+
+@app.route('/history/battery_capacity')
+def battery_capacity():
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_history_for(timefilter, 'battery_capacity'))
+
+
+@app.route('/history/co2')
+def co2():
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_history_for(timefilter, 'co2_inside'))
+
+
+@app.route('/history/brightness')
+def brightness():
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_history_for(timefilter, 'light_inside'))
+
+
+@app.route('/history/humidity')
+def humidity():
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_history_for(timefilter, 'humidity_inside'))
+
+
+@app.route('/control/relay', methods=['POST'])
+def control_relay():
+    identifier = request.form.get('identifier')
+    state = request.form.get('state')
+    if identifier == 'light':
+        PlantLight().switch(state == 'true')
+    elif identifier == 'vent1':
+        MagnetValves().switch(1, (state == 'true'))
+    elif identifier == 'vent2':
+        MagnetValves().switch(2, (state == 'true'))
+    elif identifier == 'vent3':
+        MagnetValves().switch(3, (state == 'true'))
+    return jsonify({'state': 'OK'})
 
 
 if __name__ == '__main__':

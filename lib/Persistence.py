@@ -20,32 +20,10 @@ class Persistence:
     def write(self, json_data):
         self.client.write_points(json_data)
 
-    def get_air_temperature_inside_history(self, timefilter):
+    def get_history_for(self, timefilter, identifier):
         filter = self.__generate_influx_filter(timefilter)
         results = self.client.query(
-            'select * from air_temp_inside' + filter)
-        measurements = list(results.get_points())
-        result_list = []
-        for measurement in measurements:
-            result_list.append(
-                {'t': measurement['time'], 'y': measurement['value']})
-        return result_list
-
-    def get_wifi_strength_history(self, timefilter):
-        filter = self.__generate_influx_filter(timefilter)
-        results = self.client.query(
-            'select * from wifi_strength' + filter)
-        measurements = list(results.get_points())
-        result_list = []
-        for measurement in measurements:
-            result_list.append(
-                {'t': measurement['time'], 'y': round(measurement['value'])})
-        return result_list
-
-    def get_air_temperature_outside_history(self, timefilter):
-        filter = self.__generate_influx_filter(timefilter)
-        results = self.client.query(
-            'select * from air_temp_outside' + filter)
+            'select * from ' + identifier + filter)
         measurements = list(results.get_points())
         result_list = []
         for measurement in measurements:

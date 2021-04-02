@@ -22,15 +22,13 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/assets/img/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="shortcut icon" href=/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-        rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -61,18 +59,27 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-lightbulb'></i> Licht An"
-            data-off="<i class='fa fa-lightbulb'></i> Licht Aus" data-width="100" data-height="75">
-
-        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-tint'></i> Ventil1 offen"
-            data-off="<i class='fa fa-tint'></i> Ventil1 zu" data-width="100" data-height="75">
-
-        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-tint'></i> Ventil2 offen"
-            data-off="<i class='fa fa-tint'></i> Ventil2 zu" data-width="100" data-height="75">
-
-        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-tint'></i> Ventil3 offen"
-            data-off="<i class='fa fa-tint'></i> Ventil3 zu" data-width="100" data-height="75">
+    <div class="container" id="control-container">
+        <div class="row">
+            <button type="button" class="btn btn-secondary col-sm mb-5" id="light">
+                <i class='fa fa-lightbulb-o'></i> Licht
+            </button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary col-sm mb-5" id="vent1">
+                <i class='fa fa-tint'></i> Ventil 1
+            </button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary col-sm mb-5" id="vent2">
+                <i class='fa fa-tint'></i> Ventil 2
+            </button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary col-sm mb-5" id="vent3">
+                <i class='fa fa-tint'></i> Ventil 3
+            </button>
+        </div>
     </div>
 
     <footer class="footer mt-auto py-3 mt-3 bg-dark">
@@ -82,7 +89,7 @@
     </footer>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="/assets/js/control.js"></script>
 </body>
 
 </html>

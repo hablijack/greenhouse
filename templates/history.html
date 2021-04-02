@@ -22,7 +22,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/assets/img/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="shortcut icon" href=/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
     <link rel='stylesheet prefetch'
@@ -61,7 +61,7 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="air_temp_container mt-3">
+        <div class="history_container air_temp_container mt-3">
             <h3 class="text-center">Lufttemperaturen</h3>
             <canvas id="air-temperature"></canvas>
             <div class="row">
@@ -75,12 +75,68 @@
                 </div>
             </div>
         </div>
-        <div class="wifi_container mt-3 mb-3">
+        <div class="history_container humidity_container mt-3 mb-3">
+            <h3 class="text-center">Luftfeuchtigkeit</h3>
+            <canvas id="humidity"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="humidity_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="history_container co2_container mt-3 mb-3">
+            <h3 class="text-center">CO2 Sättigung</h3>
+            <canvas id="co2-history"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="co2_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="history_container brightness_container mt-3 mb-3">
+            <h3 class="text-center">Helligkeit</h3>
+            <canvas id="brightness-history"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="brightness_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="history_container wifi_container mt-3 mb-3">
             <h3 class="text-center">WiFi Signalstärke</h3>
             <canvas id="wifi-strength"></canvas>
             <div class="row">
                 <div class="col-sm-2 mt-1">
                     <select class="form-control form-control-lg" id="wifi_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="history_container battery_container mt-3 mb-3">
+            <h3 class="text-center">Batterie Ladezustand</h3>
+            <canvas id="battery-capacity"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="battery_timefilter">
                         <option value="today" selected>Heute</option>
                         <option value="week">Woche</option>
                         <option value="month">Monat</option>
