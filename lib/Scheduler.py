@@ -5,15 +5,15 @@ import atexit
 import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-#from lib.sensors.HumidityAndTemperature import HumidityAndTemperature
-#from lib.sensors.Light import Light
-#from lib.sensors.Battery import Battery
-#from lib.sensors.SoilTempInside import SoilTempInside
-#from lib.sensors.AirTempOutside import AirTempOutside
-#from lib.sensors.Gas import Gas
-#from lib.sensors.Wifi import Wifi
-#from lib.MagnetValves import MagnetValves
-#from lib.PlantLight import PlantLight
+from lib.sensors.HumidityAndTemperature import HumidityAndTemperature
+from lib.sensors.Light import Light
+from lib.sensors.Battery import Battery
+from lib.sensors.SoilTempInside import SoilTempInside
+from lib.sensors.AirTempOutside import AirTempOutside
+from lib.sensors.Gas import Gas
+from lib.sensors.Wifi import Wifi
+from lib.MagnetValves import MagnetValves
+from lib.PlantLight import PlantLight
 
 
 class Scheduler:
@@ -23,72 +23,72 @@ class Scheduler:
         self.scheduler = BackgroundScheduler()
         atexit.register(lambda: self.scheduler.shutdown())
 
-        # self.scheduler.add_job(
-        #     id='measure_gas_sensor',
-        #     func=self.measure_gas_sensor,
-        #     trigger='interval',
-        #     minutes=10)
+        self.scheduler.add_job(
+            id='measure_gas_sensor',
+            func=self.measure_gas_sensor,
+            trigger='interval',
+            minutes=10)
+
+        self.scheduler.add_job(
+            id='measure_battery_state',
+            func=self.measure_battery_state,
+            trigger='interval',
+            minutes=15)
+
+        self.scheduler.add_job(
+            id='measure_dht_sensor',
+            func=self.measure_dht_sensor,
+            trigger='interval',
+            minutes=10)
+
+        self.scheduler.add_job(
+            id='measure_light_sensor',
+            func=self.measure_light_sensor,
+            trigger='interval',
+            minutes=5)
+
+        self.scheduler.add_job(
+            id='measure_wifi_strength',
+            func=self.measure_wifi_strength,
+            trigger='interval',
+            minutes=5)
+
+        self.scheduler.add_job(
+            id='measure_air_temp_outside_sensor',
+            func=self.measure_air_temp_outside_sensor,
+            trigger='interval',
+            minutes=10)
 
         # self.scheduler.add_job(
-        #     id='measure_battery_state',
-        #     func=self.measure_battery_state,
-        #     trigger='interval',
-        #     minutes=15)
-
-        # self.scheduler.add_job(
-        #     id='measure_dht_sensor',
-        #     func=self.measure_dht_sensor,
-        #     trigger='interval',
-        #     minutes=10)
-
-        # self.scheduler.add_job(
-        #     id='measure_light_sensor',
-        #     func=self.measure_light_sensor,
-        #     trigger='interval',
-        #     minutes=5)
-
-        # self.scheduler.add_job(
-        #     id='measure_wifi_strength',
-        #     func=self.measure_wifi_strength,
-        #     trigger='interval',
-        #     minutes=5)
-
-        # self.scheduler.add_job(
-        #    id='measure_air_temp_outside_sensor',
-        #    func=self.measure_air_temp_outside_sensor,
+        #    id='measure_soil_temp_inside_sensor',
+        #    func=self.measure_soil_temp_inside_sensor,
         #    trigger='interval',
         #    minutes=10)
 
-        # # self.scheduler.add_job(
-        # #    id='measure_soil_temp_inside_sensor',
-        # #    func=self.measure_soil_temp_inside_sensor,
-        # #    trigger='interval',
-        # #    minutes=10)
+        self.scheduler.add_job(
+            id='start_watering',
+            func=self.start_watering1,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,9,10,17,18,19',
+            minute=0,
+            second=0)
 
-        # self.scheduler.add_job(
-        #     id='start_watering',
-        #     func=self.start_watering1,
-        #     trigger='cron',
-        #     year='*',
-        #     month='*',
-        #     day='*',
-        #     hour='8,9,10,17,18,19',
-        #     minute=0,
-        #     second=0)
-
-        # self.scheduler.add_job(
-        #     id='stop_watering',
-        #     func=self.stop_watering1,
-        #     trigger='cron',
-        #     year='*',
-        #     month='*',
-        #     day='*',
-        #     hour='8,9,10,17,18,19',
-        #     minute=1,
-        #     second=0)
+        self.scheduler.add_job(
+            id='stop_watering',
+            func=self.stop_watering1,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,9,10,17,18,19',
+            minute=1,
+            second=0)
 
         self.scheduler.start()
-        # self.measure_all_values()
+        self.measure_all_values()
 
     def persist(self, timestamp, key, value):
         json_body = [{
@@ -98,64 +98,64 @@ class Scheduler:
         }]
         self.persistence.write(json_body)
 
-    # def start_watering1(self):
-    #     MagnetValves().switch(1, True)
+    def start_watering1(self):
+        MagnetValves().switch(1, True)
 
-    # def stop_watering1(self):
-    #     MagnetValves().switch(1, False)
+    def stop_watering1(self):
+        MagnetValves().switch(1, False)
 
-    # def measure_battery_state(self):
-    #     values = Battery().read()
-    #     if values['battery_voltage']:
-    #         self.persist(datetime.now(), 'battery_voltage',
-    #                      values['battery_voltage'])
-    #     if values['power_consumption']:
-    #         self.persist(datetime.now(), 'power_consumption',
-    #                      values['power_consumption'])
-    #     if values['battery_capacity']:
-    #         self.persist(datetime.now(), 'battery_capacity',
-    #                      values['battery_capacity'])
+    def measure_battery_state(self):
+        values = Battery().read()
+        if values['battery_voltage']:
+            self.persist(datetime.now(), 'battery_voltage',
+                         values['battery_voltage'])
+        if values['power_consumption']:
+            self.persist(datetime.now(), 'power_consumption',
+                         values['power_consumption'])
+        if values['battery_capacity']:
+            self.persist(datetime.now(), 'battery_capacity',
+                         values['battery_capacity'])
 
-    # def measure_dht_sensor(self):
-    #     values = HumidityAndTemperature().read()
-    #     if values['temperature']:
-    #         self.persist(datetime.now(), 'air_temp_inside',
-    #                      values['temperature'])
-    #     if values['humidity']:
-    #         self.persist(datetime.now(), 'humidity_inside', values['humidity'])
+    def measure_dht_sensor(self):
+        values = HumidityAndTemperature().read()
+        if values['temperature']:
+            self.persist(datetime.now(), 'air_temp_inside',
+                         values['temperature'])
+        if values['humidity']:
+            self.persist(datetime.now(), 'humidity_inside', values['humidity'])
 
-    # def measure_gas_sensor(self):
-    #     value = Gas().read()
-    #     if value:
-    #         self.persist(datetime.now(), 'co2_inside', value)
+    def measure_gas_sensor(self):
+        value = Gas().read()
+        if value:
+            self.persist(datetime.now(), 'co2_inside', value)
 
-    # def measure_air_temp_outside_sensor(self):
-    #     value = AirTempOutside().read()
-    #     if value:
-    #         self.persist(datetime.now(), 'air_temp_outside', value)
+    def measure_air_temp_outside_sensor(self):
+        value = AirTempOutside().read()
+        if value:
+            self.persist(datetime.now(), 'air_temp_outside', value)
 
-    # def measure_soil_temp_inside_sensor(self):
-    #     value = SoilTempInside().read()
-    #     if value:
-    #         self.persist(datetime.now(), 'soil_temp_inside', value)
+    def measure_soil_temp_inside_sensor(self):
+        value = SoilTempInside().read()
+        if value:
+            self.persist(datetime.now(), 'soil_temp_inside', value)
 
-    # def measure_light_sensor(self):
-    #     value = Light().read()
-    #     if value:
-    #         self.persist(datetime.now(), 'light_inside', value)
+    def measure_light_sensor(self):
+        value = Light().read()
+        if value:
+            self.persist(datetime.now(), 'light_inside', value)
 
-    # def measure_wifi_strength(self):
-    #     value = Wifi().read()
-    #     if value:
-    #         self.persist(datetime.now(), 'wifi_strength', value)
+    def measure_wifi_strength(self):
+        value = Wifi().read()
+        if value:
+            self.persist(datetime.now(), 'wifi_strength', value)
 
-    # def measure_all_values(self):
-    #     MagnetValves().initialize()
-    #     PlantLight().initialize()
-    #     self.measure_dht_sensor()
-    #     self.measure_light_sensor()
-    #     self.measure_air_temp_outside_sensor()
-    #     # self.measure_soil_temp_inside_sensor()
-    #     self.measure_battery_state()
-    #     self.measure_gas_sensor()
-    #     self.measure_wifi_strength()
+    def measure_all_values(self):
+        MagnetValves().initialize()
+        PlantLight().initialize()
+        self.measure_dht_sensor()
+        self.measure_light_sensor()
+        self.measure_air_temp_outside_sensor()
+        # self.measure_soil_temp_inside_sensor()
+        self.measure_battery_state()
+        self.measure_gas_sensor()
+        self.measure_wifi_strength()
