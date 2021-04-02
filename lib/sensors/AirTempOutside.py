@@ -4,7 +4,7 @@
 
 class AirTempOutside():
 
-    SENSOR_FILE = '/sys/bus/w1/devices/28-0114502930aa/w1_slave'
+    SENSOR_FILE = '/sys/bus/w1/devices/28-0114503f83aa/w1_slave'
 
     def read(self):
         try:
