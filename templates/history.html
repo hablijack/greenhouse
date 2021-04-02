@@ -5,12 +5,31 @@
     <meta charset="UTF-8" />
     <title>Habel Gewächshaus : History</title>
 
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="shortcut icon" href=/favicon.ico">
+
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
-    <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css' />
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -42,27 +61,39 @@
     </nav>
 
     <div class="container-fluid">
-
-        <canvas id="air-temperature"></canvas>
-        <select id="type">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-        </select>
-        <select id="unit">
-            <option value="second">Second</option>
-            <option value="minute">Minute</option>
-            <option value="hour">Hour</option>
-            <option value="day" selected>Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
-        </select>
-        <button id="update">update</button>
-
+        <div class="air_temp_container mt-3">
+            <h3 class="text-center">Lufttemperaturen</h3>
+            <canvas id="air-temperature"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="temperature_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="wifi_container mt-3 mb-3">
+            <h3 class="text-center">WiFi Signalstärke</h3>
+            <canvas id="wifi-strength"></canvas>
+            <div class="row">
+                <div class="col-sm-2 mt-1">
+                    <select class="form-control form-control-lg" id="wifi_timefilter">
+                        <option value="today" selected>Heute</option>
+                        <option value="week">Woche</option>
+                        <option value="month">Monat</option>
+                        <option value="year">Jahr</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer mt-auto py-3 mt-3 bg-dark">
         <div class="container">
-            <span class="text-muted">Gewächshaus Steuerung</span>
+            <span class="text-muted">Habel Gewächshaus-Steuerung</span>
         </div>
     </footer>
 

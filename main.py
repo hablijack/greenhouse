@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 from waitress import serve
 from flask import Flask, request, render_template, Response, send_from_directory, jsonify
 from lib.Persistence import Persistence
@@ -16,6 +17,12 @@ app = Flask(__name__)
 @app.template_filter('iso8601_to_readable')
 def iso8601_to_readable(value):
     return dateutil.parser.parse(value).strftime('%H:%M:%S')
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'assets/img/favicons'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/assets/<path:path>')
@@ -42,12 +49,20 @@ def history():
 
 @app.route('/history/air_temperature_inside')
 def air_temperature_inside():
-    return jsonify(persistence.get_air_temperature_inside_history())
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_air_temperature_inside_history(timefilter))
 
 
 @app.route('/history/air_temperature_outside')
 def air_temperature_outside():
-    return jsonify(persistence.get_air_temperature_inside_history())
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_air_temperature_outside_history(timefilter))
+
+
+@app.route('/history/wifi_strength')
+def wifi_strength():
+    timefilter = request.args.get('timefilter')
+    return jsonify(persistence.get_wifi_strength_history(timefilter))
 
 
 if __name__ == '__main__':

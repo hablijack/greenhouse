@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from socket import TCP_NODELAY
 from influxdb import InfluxDBClient
+from datetime import date, timedelta
 
 
 class Persistence:
@@ -18,9 +20,10 @@ class Persistence:
     def write(self, json_data):
         self.client.write_points(json_data)
 
-    def get_air_temperature_inside_history(self):
+    def get_air_temperature_inside_history(self, timefilter):
+        filter = self.__generate_influx_filter(timefilter)
         results = self.client.query(
-            'select * from air_temp_inside ORDER BY time DESC')
+            'select * from air_temp_inside' + filter)
         measurements = list(results.get_points())
         result_list = []
         for measurement in measurements:
@@ -28,15 +31,55 @@ class Persistence:
                 {'t': measurement['time'], 'y': measurement['value']})
         return result_list
 
-    def get_air_temperature_outside_history(self):
+    def get_wifi_strength_history(self, timefilter):
+        filter = self.__generate_influx_filter(timefilter)
         results = self.client.query(
-            'select * from air_temp_outside ORDER BY time DESC')
+            'select * from wifi_strength' + filter)
+        measurements = list(results.get_points())
+        result_list = []
+        for measurement in measurements:
+            result_list.append(
+                {'t': measurement['time'], 'y': round(measurement['value'])})
+        return result_list
+
+    def get_air_temperature_outside_history(self, timefilter):
+        filter = self.__generate_influx_filter(timefilter)
+        results = self.client.query(
+            'select * from air_temp_outside' + filter)
         measurements = list(results.get_points())
         result_list = []
         for measurement in measurements:
             result_list.append(
                 {'t': measurement['time'], 'y': measurement['value']})
         return result_list
+
+    def __generate_influx_filter(self, timefilter):
+        filter = " ORDER BY time DESC"
+        if timefilter == 'today':
+            today = date.today()
+            tomorrow = date.today() + timedelta(days=1)
+            filter = " where time >= '" + \
+                today.strftime("%Y-%m-%d") + "' and time < '" + \
+                tomorrow.strftime("%Y-%m-%d") + "'" + filter
+        elif timefilter == 'week':
+            tomorrow = date.today() + timedelta(days=1)
+            firstOfWeek = date.today() - timedelta(days=7)
+            filter = " where time >= '" + \
+                firstOfWeek.strftime("%Y-%m-%d") + "' and time < '" + \
+                tomorrow.strftime("%Y-%m-%d") + "'" + filter
+        elif timefilter == 'month':
+            tomorrow = date.today() + timedelta(days=1)
+            firstOfMonth = date.today() - timedelta(days=30)
+            filter = " where time >= '" + \
+                firstOfMonth.strftime("%Y-%m-%d") + "' and time < '" + \
+                tomorrow.strftime("%Y-%m-%d") + "'" + filter
+        elif timefilter == 'year':
+            tomorrow = date.today() + timedelta(days=1)
+            firstOfYear = date.today() - timedelta(days=365)
+            filter = " where time >= '" + \
+                firstOfYear.strftime("%Y-%m-%d") + "' and time < '" + \
+                tomorrow.strftime("%Y-%m-%d") + "'" + filter
+        return filter
 
     def get_short_history(self):
         results = self.client.query(

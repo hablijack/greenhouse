@@ -47,3 +47,17 @@ html, body {
 .table-sm td, .table-sm th {
     padding: .1rem;
 }
+
+.air_temp_container  {
+    border: 1px solid #343a40;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f7fdff;
+}
+
+.wifi_container {
+    border: 1px solid #343a40;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fffcf0;
+}
