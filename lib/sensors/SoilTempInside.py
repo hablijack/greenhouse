@@ -4,7 +4,7 @@
 
 class SoilTempInside():
 
-    SENSOR_FILE = '/sys/bus/w1/devices/28-0114503f83aa/w1_slave'
+    SENSOR_FILE = '/sys/bus/w1/devices/28-800000014a00/w1_slave'
 
     def read(self):
         try:
