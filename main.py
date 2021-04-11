@@ -20,6 +20,113 @@ app = Flask(__name__)
 def iso8601_to_readable(value):
     return dateutil.parser.parse(value).strftime('%H:%M:%S')
 
+@app.template_filter('air_inside_status')
+def air_inside_status(value):
+    cssClass = 'green'
+    if(value < 6):
+        cssClass='red'
+    elif(value >= 6):
+        cssClass='orange'
+    elif(value > 20):
+        cssClass='green'
+    elif(value > 30):
+        cssClass='red'
+    return cssClass
+
+@app.template_filter('air_outside_status')
+def air_outside_status(value):
+    cssClass = 'green'
+    if(value < 6):
+        cssClass='red'
+    elif(value >= 6):
+        cssClass='orange'
+    elif(value > 15):
+        cssClass='green'
+    elif(value > 30):
+        cssClass='red'
+    return cssClass
+
+@app.template_filter('soil_temp_status')
+def soil_temp_status(value):
+    cssClass = 'green'
+    if(value < 4):
+        cssClass='red'
+    elif(value >= 4):
+        cssClass='orange'
+    elif(value >= 13):
+        cssClass='green'
+    elif(value > 29):
+        cssClass='red'
+    return cssClass
+
+@app.template_filter('light_status')
+def light_status(value):
+    cssClass = 'green'
+    if(value < 400):
+        cssClass='red'
+    elif(value >= 400):
+        cssClass='orange'
+    elif(value >= 5000):
+        cssClass='green'
+    return cssClass
+
+
+@app.template_filter('humidity_status')
+def humidity_status(value):
+    cssClass = 'green'
+    if(value < 50):
+        cssClass='red'
+    elif(value >= 50):
+        cssClass='orange'
+    elif(value >= 65):
+        cssClass='green'
+    return cssClass
+
+@app.template_filter('co2_status')
+def co2_status(value):
+    cssClass = 'green'
+    if(value < 400):
+        cssClass='red'
+    elif(value >= 400):
+        cssClass='orange'
+    elif(value >= 600):
+        cssClass='green'
+    elif(value >= 2000):
+        cssClass='red'
+    return cssClass
+
+@app.template_filter('soil_status')
+def soil_status(value):
+    cssClass = 'green'
+    if(value < 10):
+        cssClass='red'
+    elif(value >= 10):
+        cssClass='orange'
+    elif(value >= 50):
+        cssClass='green'
+    return cssClass
+
+@app.template_filter('battery_status')
+def battery_status(value):
+    cssClass = 'green'
+    if(value < 30):
+        cssClass='red'
+    elif(value >= 30):
+        cssClass='orange'
+    elif(value >= 50):
+        cssClass='green'
+    return cssClass
+
+@app.template_filter('wifi_status')
+def wifi_status(value):
+    cssClass = 'green'
+    if(value < 35):
+        cssClass='red'
+    elif(value >= 35):
+        cssClass='orange'
+    elif(value >= 45):
+        cssClass='green'
+    return cssClass
 
 @app.route('/favicon.ico')
 def favicon():

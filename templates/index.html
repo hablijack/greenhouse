@@ -66,7 +66,7 @@
             <div class="col-lg-10">
                 <div class="row">
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.air_temp_inside | air_inside_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Luft innen <i class="fa fa-thermometer-half"
                                         aria-hidden="true"></i></h5>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.air_temp_outside | air_outside_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Luft außen <i class="fa fa-thermometer-half"
                                         aria-hidden="true"></i></h5>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.soil_temp_inside | soil_temp_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden <i class="fa fa-thermometer-half" aria-hidden="true"></i>
                                 </h5>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.light_inside | light_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
                                 <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) |
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.humidity_inside | humidity_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Luft innen <i class="fa fa-tint" aria-hidden="true"></i></h4>
                                     <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0,
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card ok">
+                        <div class="card {{ current.co2_inside | co2_status }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
                                 <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) |
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <div class="card ok mb-3">
+                        <div class="card {{ current.soil_moisture_1 | soil_status }} mb-3">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
@@ -153,7 +153,7 @@
                             </div>
                         </div>
 
-                        <div class="card ok mb-3">
+                        <div class="card {{ current.soil_moisture_2 | soil_status }} mb-3">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
@@ -163,7 +163,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="card ok mb-3">
+                        <div class="card {{ current.soil_moisture_3 | soil_status }} mb-3">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 3 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
 
-                        <div class="card ok mb-3">
+                        <div class="card {{ current.battery_capacity | battery_status }} mb-3">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Batterie <i class="fa fa-battery" aria-hidden="true"></i></h5>
                                 <p class="card-text">
@@ -184,7 +184,7 @@
                             </div>
                         </div>
 
-                        <div class="card ok mb-3">
+                        <div class="card {{ current.wifi_strength | wifi_status }} mb-3">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Wifi <i class="fa fa-wifi" aria-hidden="true"></i></h5>
                                 <p class="card-text">
@@ -210,7 +210,7 @@
                                     <th scope="col">Zeitpunkt</th>
                                     <th scope="col">Sensor</th>
                                     <th scope="col">Wert</th>
-                                </tr>
+                                </tr>su
                             </thead>
                             <tbody>
                                 {% for measurement in short_history %}
