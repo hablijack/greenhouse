@@ -66,25 +66,47 @@ class Scheduler:
             minutes=10)
 
         self.scheduler.add_job(
-            id='start_watering',
+            id='start_watering1',
             func=self.start_watering1,
             trigger='cron',
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,17,18,19',
+            hour='8,9,10,16,17,18',
             minute=0,
             second=0)
 
         self.scheduler.add_job(
-            id='stop_watering',
+            id='stop_watering1',
             func=self.stop_watering1,
             trigger='cron',
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,17,18,19',
+            hour='8,9,10,16,17,18',
             minute=1,
+            second=0)
+
+        self.scheduler.add_job(
+            id='start_watering2',
+            func=self.start_watering2,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,9,10,16,17,18',
+            minute=3,
+            second=0)
+
+        self.scheduler.add_job(
+            id='stop_watering2',
+            func=self.stop_watering2,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,9,10,16,17,18',
+            minute=4,
             second=0)
 
         self.scheduler.start()
@@ -103,6 +125,12 @@ class Scheduler:
 
     def stop_watering1(self):
         MagnetValves().switch(1, False)
+
+    def start_watering2(self):
+        MagnetValves().switch(2, True)
+
+    def stop_watering2(self):
+        MagnetValves().switch(2, False)
 
     def measure_battery_state(self):
         values = Battery().read()
