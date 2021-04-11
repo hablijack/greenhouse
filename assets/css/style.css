@@ -3,10 +3,18 @@ html, body {
     background-color: #f5f5f5;
 }
 
-.card.ok {
+.card.green {
    color: white;
    background-color: #388e3c;
 }
+.card.orange {
+    color: white;
+    background-color: #e9af11;
+ }
+ .card.red {
+    color: white;
+    background-color: #8e3838;
+ }
 .card .fa {
     color:white;
 }
