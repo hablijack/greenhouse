@@ -72,7 +72,7 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,16,17,18',
+            hour='8,10,12,13,17,18',
             minute=0,
             second=0)
 
@@ -83,8 +83,8 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,16,17,18',
-            minute=1,
+            hour='8,10,12,13,17,18',
+            minute=3,
             second=0)
 
         self.scheduler.add_job(
@@ -94,8 +94,8 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,16,17,18',
-            minute=3,
+            hour='8,10,12,13,17,18',
+            minute=10,
             second=0)
 
         self.scheduler.add_job(
@@ -105,8 +105,8 @@ class Scheduler:
             year='*',
             month='*',
             day='*',
-            hour='8,9,10,16,17,18',
-            minute=4,
+            hour='8,10,12,13,17,18',
+            minute=13,
             second=0)
 
         self.scheduler.start()
