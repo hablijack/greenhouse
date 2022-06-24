@@ -1,6 +1,6 @@
 html, body {
     font-family: 'Lato', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #dfdfdf;
 }
 
 .card.green {
@@ -17,6 +17,8 @@ html, body {
  }
 .card .fa {
     color:white;
+    font-size: 70px;
+    float: left;
 }
 
 .card {
@@ -48,6 +50,12 @@ html, body {
     background-color: #343a40;
     color: white;
 } 
+
+.short-history .fa {
+    font-size: 19px;
+    float: left;
+    float: none;
+}
 
 .table-sm {
     font-size: 15px;
@@ -96,4 +104,9 @@ html, body {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+}
+
+#webcam-image {
+    max-width: 100%;
+	border-radius: 10px;
 }

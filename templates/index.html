@@ -25,10 +25,8 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css' />
-    <link rel='stylesheet prefetch'
-        href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
-    <link rel='stylesheet prefetch'
-        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' />
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -68,8 +66,8 @@
                     <div class="col-lg-2 mb-3">
                         <div class="card {{ current.air_temp_inside | air_inside_status }}">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Luft innen <i class="fa fa-thermometer-half"
-                                        aria-hidden="true"></i></h5>
+                                <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                <h5 class="card-title">Luft innen</h5>
                                 <p class="card-text" id="last-temp">{{ current.air_temp_inside | default(0.0, true) |
                                     round(1, 'floor') }} &#8451;</p>
                             </div>
@@ -78,8 +76,8 @@
                     <div class="col-lg-2 mb-3">
                         <div class="card {{ current.air_temp_outside | air_outside_status }}">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Luft außen <i class="fa fa-thermometer-half"
-                                        aria-hidden="true"></i></h5>
+				                <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                <h5 class="card-title">Luft außen</h5>
                                 <p class="card-text" id="last-temp">{{ current.air_temp_outside | default(0.0, true) |
                                     round(1, 'floor') }} &#8451;</p>
                             </div>
@@ -88,37 +86,40 @@
                     <div class="col-lg-2 mb-3">
                         <div class="card {{ current.soil_temp_inside | soil_temp_status }}">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Boden <i class="fa fa-thermometer-half" aria-hidden="true"></i>
-                                </h5>
+                                <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                <h5 class="card-title">Boden</h5>
                                 <p id="last-soil-temp-inside" class="card-text">{{ current.soil_temp_inside |
                                     default(0.0, true) | round(1, 'floor') }} &#8451;</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card {{ current.light_inside | light_status }}">
+                        <div class="card {{ current.battery_capacity | battery_status }} mb-3">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Helligkeit <i class="fa fa-sun-o" aria-hidden="true"></i></h5>
-                                <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) |
-                                    round(2, 'floor') }} lux</p>
+                                <h5 class="card-title">Batterie <i class="fa fa-car-battery" aria-hidden="true"></i></h5>
+                                <p class="card-text">
+                                    <span id="last-battery">{{ current.battery_capacity | default(0, true) | round | int
+                                        }}</span> %
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
                         <div class="card {{ current.humidity_inside | humidity_status }}">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Luft innen <i class="fa fa-tint" aria-hidden="true"></i></h4>
-                                    <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0,
-                                        true) | round | int }} %</p>
+ 				                <i class="fa fa-tint" aria-hidden="true"></i>
+                                <h5 class="card-title">Luft innen</h5>
+                                    <p class="card-text" id="last-humidity">{{ current.humidity_inside | default(0, true) | round | int }} %</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 mb-3">
-                        <div class="card {{ current.co2_inside | co2_status }}">
+                        <div class="card {{ current.wifi_strength | wifi_status }}">
                             <div class="card-body text-center">
-                                <h5 class="card-title">CO2 <i class="fa fa-cloud" aria-hidden="true"></i></h5>
-                                <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) |
-                                    int }} ppm</p>
+                                <h5 class="card-title">Wifi <i class="fa fa-wifi" aria-hidden="true"></i></h5>
+                                <p class="card-text">
+                                    <span id="last-wifi">{{ current.wifi_strength | default(0, true) | round | int }}</span> %
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -126,73 +127,75 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="card h-100">
-                            <div class="card-body text-center">
-                                <img src="assets/img/greenhouse_light.png" class="d-none">
-                                <img src="assets/img/greenhouse_water_light.png" class="d-none">
-                                <img src="assets/img/greenhouse_water.png" class="d-none">
-                                <img id="greenhouse-display" src="assets/img/greenhouse.png" usemap="#image-map">
-                                <map name="image-map">
-                                    <area href="#" id="light-link-area"
-                                        coords="8,135,60,120,101,97,117,75,133,46,143,17,140,1,30,13" shape="poly">
-                                    <area href="#" id="water-link-area"
-                                        coords="495,352,606,352,605,530,456,533,455,519,389,517,344,443,242,503,228,495,542,305,392,216,80,399,70,405,59,394,388,197,568,301,499,348,498,349"
-                                        shape="poly">
-                                </map>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <img id="webcam-image" src="assets/img/webcam_current.jpg">
+                                    </div>
+                                    <div class="col">
+                                        <img src="assets/img/greenhouse_light.png" class="d-none">
+                                        <img src="assets/img/greenhouse_water_light.png" class="d-none">
+                                        <img src="assets/img/greenhouse_water.png" class="d-none">
+                                        <img id="greenhouse-display" class='img-responsive' style='width:100%;' src="assets/img/greenhouse.png" usemap="#image-map">
+                                        <map name="image-map">
+                                            <area href="#" id="light-link-area"
+                                                coords="8,135,60,120,101,97,117,75,133,46,143,17,140,1,30,13" shape="poly">
+                                            <area href="#" id="water-link-area"
+                                                coords="495,352,606,352,605,530,456,533,455,519,389,517,344,443,242,503,228,495,542,305,392,216,80,399,70,405,59,394,388,197,568,301,499,348,498,349"
+                                                shape="poly">
+                                        </map>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <div class="card {{ current.soil_moisture_1 | default(0, true) | soil_status }} mb-3">
+                        <div class="card {{ current.soil_moisture_1 | default(0, true) | soil_status }} mb-4">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 1 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
                                 <p class="card-text">
-                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) |
-                                        round | int }}</span> %
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_1 | default(0, true) | round | int }}</span> %
                                 </p>
                             </div>
                         </div>
 
-                        <div class="card {{ current.soil_moisture_2 | default(0, true) | soil_status }} mb-3">
+                        <div class="card {{ current.soil_moisture_2 | default(0, true) | soil_status }} mb-4">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 2 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
                                 <p class="card-text">
-                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) |
-                                        round | int }}</span> %
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_2 | default(0, true) | round | int }}</span> %
                                 </p>
                             </div>
                         </div>
-                        <div class="card {{ current.soil_moisture_3 | default(0, true) | soil_status }} mb-3">
+                        <div class="card {{ current.soil_moisture_3 | default(0, true) | soil_status }} mb-4">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Boden Feuchte 3 <i class="fa fa-tint" aria-hidden="true"></i>
                                 </h5>
                                 <p class="card-text">
-                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_3 | default(0, true) |
-                                        round | int }}</span> %
+                                    <span id="last-soil-moisture-1">{{ current.soil_moisture_3 | default(0, true) | round | int }}</span> %
                                 </p>
                             </div>
                         </div>
 
-                        <div class="card {{ current.battery_capacity | battery_status }} mb-3">
+                        <div class="card {{ current.light_inside | light_status }} mb-4">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Batterie <i class="fa fa-battery" aria-hidden="true"></i></h5>
-                                <p class="card-text">
-                                    <span id="last-battery">{{ current.battery_capacity | default(0, true) | round | int
-                                        }}</span> %
-                                </p>
+                                <i class="fa fa-sun" aria-hidden="true"></i>
+                                <h5 class="card-title">Helligkeit</h5>
+                                <p class="card-text" id="last-light">{{ current.light_inside | default(0.0,true) | round(2, 'floor') }} lux</p>
                             </div>
                         </div>
 
-                        <div class="card {{ current.wifi_strength | wifi_status }} mb-3">
+                        <div class="card {{ current.co2_inside | co2_status }} mb-4">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Wifi <i class="fa fa-wifi" aria-hidden="true"></i></h5>
-                                <p class="card-text">
-                                    <span id="last-wifi">{{ current.wifi_strength | default(0, true) | round | int
-                                        }}</span> %
-                                </p>
+                                <i class="fa fa-cloud" aria-hidden="true"></i>
+                                <h5 class="card-title">CO2</h5>
+                                <p class="card-text" id="last-placeholder">{{ current.co2_inside | default(0, true) | int }} ppm</p>
                             </div>
                         </div>
+                        
                     </div>
 
 
@@ -202,7 +205,7 @@
                 <div class="card h-100">
                     <div class="short-history card-body text-center p-0">
                         <h5 class="card-title pt-3 pb-3 mb-0">
-                            Letzte Updates <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            Letzte Updates <i class="fa fa-clock" aria-hidden="true"></i>
                         </h5>
                         <table class="card-text light table table-hover table-sm" id="last-time">
                             <thead>

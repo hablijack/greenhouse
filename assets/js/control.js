@@ -11,23 +11,11 @@ function switchRelay(identifier, state) {
 
 $(document).ready(function () {
     $('#control-container button').click(function () {
-        var current = $(this);
+        var identifier = $(this).attr('id')
         if ($(this).hasClass('active')) {
-            // ALREADY RUNNING --- SIMPLY SWITCH RELAY OFF
-            switchRelay($(current).attr('id'), false);
+            switchRelay(identifier, false);
         } else {
-            // NOT RUNNING YET
-            $('#control-container button').each(function (index) {
-                if ($(this).attr('id') != $(current).attr('id')) {
-                    // --- SWITCH OFF OTHER RELAYS
-                    if ($(this).hasClass('active')) {
-                        switchRelay($(this).attr('id'), false);
-                    }
-                } else {
-                    // --- TURN THIS ON
-                    switchRelay($(this).attr('id'), true);
-                }
-            });
+            switchRelay(identifier, true);
         }
     });
 });

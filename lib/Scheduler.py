@@ -13,7 +13,6 @@ from lib.sensors.AirTempOutside import AirTempOutside
 from lib.sensors.Gas import Gas
 from lib.sensors.Wifi import Wifi
 from lib.MagnetValves import MagnetValves
-from lib.PlantLight import PlantLight
 
 
 class Scheduler:
@@ -84,7 +83,7 @@ class Scheduler:
             month='*',
             day='*',
             hour='8,10,12,13,17,18',
-            minute=3,
+            minute=1,
             second=0)
 
         self.scheduler.add_job(
@@ -95,7 +94,7 @@ class Scheduler:
             month='*',
             day='*',
             hour='8,10,12,13,17,18',
-            minute=10,
+            minute=2,
             second=0)
 
         self.scheduler.add_job(
@@ -106,7 +105,7 @@ class Scheduler:
             month='*',
             day='*',
             hour='8,10,12,13,17,18',
-            minute=13,
+            minute=3,
             second=0)
 
         self.scheduler.add_job(
@@ -117,7 +116,7 @@ class Scheduler:
             month='*',
             day='*',
             hour='8,10,12,13,17,18',
-            minute=20,
+            minute=4,
             second=0)
 
         self.scheduler.add_job(
@@ -128,9 +127,30 @@ class Scheduler:
             month='*',
             day='*',
             hour='8,10,12,13,17,18',
-            minute=23,
+            minute=5,
             second=0)
 
+        self.scheduler.add_job(
+            id='start_watering4',
+            func=self.start_watering4,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,10,12,13,17,18',
+            minute=6,
+            second=0)
+
+        self.scheduler.add_job(
+            id='stop_watering4',
+            func=self.stop_watering4,
+            trigger='cron',
+            year='*',
+            month='*',
+            day='*',
+            hour='8,10,12,13,17,18',
+            minute=7,
+            second=0)
 
         self.scheduler.start()
         self.measure_all_values()
@@ -146,7 +166,7 @@ class Scheduler:
     def start_watering1(self):
         MagnetValves().switch(1, True)
 
-    def stop_watering1(self):
+    def stop_watering1(self):#
         MagnetValves().switch(1, False)
 
     def start_watering2(self):
@@ -161,6 +181,11 @@ class Scheduler:
     def stop_watering3(self):
         MagnetValves().switch(3, False)
 
+    def start_watering4(self):
+        MagnetValves().switch(4, True)
+
+    def stop_watering4(self):
+        MagnetValves().switch(4, False)
 
     def measure_battery_state(self):
         values = Battery().read()
@@ -209,7 +234,6 @@ class Scheduler:
 
     def measure_all_values(self):
         MagnetValves().initialize()
-        PlantLight().initialize()
         self.measure_dht_sensor()
         self.measure_light_sensor()
         self.measure_air_temp_outside_sensor()

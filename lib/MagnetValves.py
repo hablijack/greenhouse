@@ -10,8 +10,8 @@ class MagnetValves():
     def initialize(self):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup([19,5,6], GPIO.OUT)
-        GPIO.output([19,5,6], GPIO.HIGH)
+        GPIO.setup([19,5,6,13], GPIO.OUT)
+        GPIO.output([19,5,6,13], GPIO.HIGH)
         GPIO.cleanup()
 
 
@@ -24,6 +24,8 @@ class MagnetValves():
                 gpiopin = 5
             elif valve_no == 3:
                 gpiopin = 6
+            elif valve_no == 4:
+                gpiopin = 13
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(gpiopin, GPIO.OUT)
